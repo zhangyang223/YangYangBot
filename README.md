@@ -1,6 +1,6 @@
 # Discord-bot
 
-Easy Music Bot is a discord music bot that will have similar features as Groovy and Rythm.  Once this is more production ready, I will make it run on a public server so it will be accessible by everyone.
+YangYangBot is a discord music bot that will have similar features as Groovy and Rythm.  Once this is more production ready, I will make it run on a public server so it will be accessible by everyone.
 
 ## Change logs
 * help page needs refinement, specifically, if there is no alias.  and needs better formatting.
@@ -34,27 +34,6 @@ Easy Music Bot is a discord music bot that will have similar features as Groovy 
 * add Chinese TTS
 * somehow setting up the youtube service account does not work.  Getting Exceed Daily limit
 * try out youtube caption API
-
-## Fixed Bugs
-
-* =q run it before the song is queued, throws an error because the song is not in queue yet.
-* =p <invalidcharacter> will cause an "The "url" argument must be of type string. Received undefined", needs better error msg.
-* =skip throws an error when there is no song in queue. This problem also occurs while playing certain youtube video because they have the Cipher on(without url to download the actual content).  downloaded the latest 2.1.5 ytdl which fixed the problem.
-internal/validators.js:117
-    throw new ERR_INVALID_ARG_TYPE(name, 'string', value);
-    ^
-
-TypeError [ERR_INVALID_ARG_TYPE]: The "url" argument must be of type string. Received undefined
-    at validateString (internal/validators.js:117:11)
-    at Url.parse (url.js:159:3)
-    at Object.urlParse [as parse] (url.js:154:13)
-    at doDownload (C:\Newman\DiscordBot\dev\easymusicbot\node_modules\miniget\dist\index.js:90:28)
-    at processTicksAndRejections (internal/process/task_queues.js:79:11) {
-  code: 'ERR_INVALID_ARG_TYPE'
-}
-* =stop does not stop because default song continues to loop play.  
-* handle the "deleted video" case in playlist.  It threw an error before and it is being handled correctly now.
-* when adding a playlist, randomly says no song in playlist.  Run it a second time is fine。  This is because the dom returned contains an empty list.
 
 ## Known Issues
 * if the length of the song is more than an hour, then current progress is incorect because it only displays mm:ss.
