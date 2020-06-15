@@ -24,9 +24,11 @@ for (const file of commandFiles)
 
 console.log(client.commands);
 
-client.once('ready', () => {
-	console.log('Ready!');
-});
+client.once('ready', () => 
+  {
+	console.log(`Logged in as ${client.user.tag}!`);
+	client.user.setPresence({ activity: { name: prefix + "help", type: 'LISTENING' }, status: 'online' });
+  });
 
 client.once('reconnecting', () => {
 	console.log('Reconnecting!');
@@ -44,32 +46,13 @@ function getUserName(message)
 {
 	
 	console.log(message.author.username);
-	/*
-	try {
-		const devID = message.author;
-		const dev = client.users.cache.get(devID);// || await client.fetchUser(devID);
-		// Retrieve the user from the client's cache.
-		// If they haven't been cached yet, fetch them.
-	
-		/*
-		const feedback = new discord.RichEmbed()
-		.setColor([0, 0, 255])
-		.setFooter(`Bot created by ${dev.tag}.`, dev.displayAvatarURL)
-		.setDescription('Your text here.');
-	
-		console.log("author id=" + devID);
-		console.log("author=" + dev.tag);
-		return dev.tag;
-	} catch(err) {
-		console.error(err);
-	}
-	*/
+
 }
 
 client.on('message', async message => {
 	if (message.author.bot) return;
 
-	getUserName(message);
+//	getUserName(message);
 	const args = message.content.slice(prefix.length).split(/ +/);
 	var commandName = args.shift().toLowerCase();
 	

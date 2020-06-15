@@ -102,7 +102,7 @@ module.exports =
             });
 
             var parser = new htmlparser.Parser(handler);
-            console.log("html body=" + body);
+//            console.log("html body=" + body);
             await parser.parseComplete(body);
 
             if (videoList.length == 0)

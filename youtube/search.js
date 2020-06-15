@@ -17,30 +17,33 @@ module.exports =
         var result = null;
         let recurse = 0;
         let url1 = encodeURI("https://www.youtube.com/results?search_query=" + searchText);
+        let videoListFromPromise = [];
+
+        async function process($)
+        {
+            $('.yt-lockup-thumbnail a').each(function () 
+            {
+                var yturl = 'https://www.youtube.com' + $(this).attr('href');
+                videoListFromPromise.push(yturl);
+            });
+
+            if (videoListFromPromise.length == 0 && recurse < 5)
+            {
+                recurse++;   
+                console.log("Recurse=" + recurse);       
+                await parsePromise(url1);
+            }
+            else
+            {
+                console.log("found " + videoListFromPromise.length + " songs from Cheerio Promise");
+                result = videoListFromPromise[0];
+            }
+        }
 
         async function parsePromise(url1)
         {
-            let videoListFromPromise = [];
             await request({uri: url1, encoding: null, transform: function (body) {return cheerio.load(body);}})
-            .then(function($){           
-                $('.yt-lockup-thumbnail a').each(function () 
-                {
-                    var yturl = 'https://www.youtube.com' + $(this).attr('href');
-                    videoListFromPromise.push(yturl);
-                });
-
-                if (videoListFromPromise.length == 0 && recurse < 5)
-                {
-                    recurse++;   
-                    console.log("Recurse=" + recurse);       
-                    parsePromise(url1);
-                }
-                else
-                {
-                    console.log("found " + videoListFromPromise.length + " songs from Cheerio Promise");
-                    result = videoListFromPromise[0];
-                }
-            })
+            .then(process)
             .catch(function(err){console.error(err);});
         }
 
