@@ -31,15 +31,14 @@ module.exports =
 
                 if (videoListFromPromise.length == 0 && recurse < 5)
                 {
-                    console.log("Recurse");       
                     recurse++;   
+                    console.log("Recurse=" + recurse);       
                     parsePromise(url1);
                 }
                 else
                 {
                     console.log("found " + videoListFromPromise.length + " songs from Cheerio Promise");
                     result = videoListFromPromise[0];
-                    return result;
                 }
             })
             .catch(function(err){console.error(err);});
@@ -48,7 +47,7 @@ module.exports =
         console.log("before parsePromise, url=" + url1);
         recurse = 0;
         await parsePromise(url1);
-        console.log("after parsePromise");
+        console.log("after parsePromise, result=" + result);
         return result;
 
     }
