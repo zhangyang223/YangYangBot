@@ -8,7 +8,7 @@ const msgFormatter = require("../util/formatTextMsg.js");
 
 module.exports = {
   name: "play",
-  description: "Play a song in your channel!",
+  description: "<text/url> Play a song/playlist",
   aliases: ["p"],
   async execute(message) 
   {

@@ -3,7 +3,7 @@ const msgFormatter = require("../util/formatTextMsg.js");
 
 module.exports = {
 	name: 'userinfo',
-	description: 'Get information about a user.',
+	description: '<@user> Get information about a user.',
 	aliases: [],
 	execute(message, client) {
 		const split = message.content.split(/ +/);
