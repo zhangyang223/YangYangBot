@@ -24,9 +24,9 @@ YangYangBot is a discord music bot that will have similar features as Groovy and
 * limit queue display to 10 so it won't be so long and q 2 to move to the second page
 * clean up messages, specifically start play message.  delete old one before add the new one
 * investigate how to setup a server to migrate from my laptop to a server, hosted on github
+* add a web site, support server, fix up help
 
 ## Todo
-* add a web site, support server, fix up help
 * investigate into adding a database support.
 * identify the audio stream and prefer opus first.
 * try to link up a radio site(possible?), https://listen.moe/
