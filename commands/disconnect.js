@@ -13,7 +13,6 @@ module.exports = {
 
 		if (serverQueue != null)
 		{
-			serverQueue.playing = false;
             if (serverQueue.songs != null)
                 serverQueue.songs = [];
 
@@ -22,6 +21,7 @@ module.exports = {
 				if (serverQueue.connection.dispatcher != null)
 					serverQueue.connection.dispatcher.end();
 			}
+			serverQueue.playing = false;
 			
         }
     }
