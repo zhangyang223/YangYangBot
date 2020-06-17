@@ -13,6 +13,7 @@ module.exports = {
 
 		if (serverQueue != null)
 		{
+			serverQueue.playing = false;
             if (serverQueue.songs != null)
                 serverQueue.songs = [];
 
