@@ -42,7 +42,8 @@ module.exports =
           voiceChannel: voiceChannel,
           connection: null,
           songs: [],
-          volume: 5
+          volume: 5,
+          playing: false
         };
 
         queue.set(message.guild.id, queueContruct);

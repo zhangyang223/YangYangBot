@@ -23,6 +23,7 @@ module.exports = {
 			
 			if (serverQueue != null && serverQueue.connection != null && serverQueue.connection.dispatcher != null)
 			{
+				serverQueue.playing = false;
 				serverQueue.connection.dispatcher.end();
 			}
 		}

@@ -3,7 +3,6 @@ const { Util } = require("discord.js");
 const ytdl = require("ytdl-core");
 const printCurrentQueue = require("../util/printCurrentQueue.js");
 const msgFormatter = require("../util/formatTextMsg.js");
-let currentlyPlaying = false;
 
 module.exports = {
   async play(message) {
@@ -115,7 +114,8 @@ module.exports = {
 
     async function playcoreMsg(song, msg)
     {
-      displayMsg(msg, song);
+// do not show this because it generates too many message notifications.
+///      displayMsg(msg, song);
       playcore(song);
 
 //      playcoreMock(song);
@@ -163,7 +163,7 @@ module.exports = {
     function playSongAux(message)
     {
       var id = serverQueue.songs.length;
-      console.log("playSongAux starting(" + id +"," + currentlyPlaying + ")");
+      console.log("playSongAux starting(" + id +"," + serverQueue.playing + ")");
       try 
       {
 
@@ -190,11 +190,11 @@ module.exports = {
           */
           serverQueue.voiceChannel.leave();
           queue.delete(guild.id);
-          currentlyPlaying = false;
+          serverQueue.playing = false;
           return;
         }
 
-        currentlyPlaying = true;
+        serverQueue.playing = true;
         var song = serverQueue.songs[0];
         announce(song);
 //        playSongWithMsg(song);
@@ -205,14 +205,14 @@ module.exports = {
       {err
         console.log("error=" + err);
         queue.delete(message.guild.id);
-        msgFormatter.flasTextMsg(message.channel, 'Unexpected Error', err.message);
+        msgFormatter.flashTextMsg(message.channel, 'Unexpected Error', err.message);
       }
     }
 
     function playSong(message)
     {
 
-      if (currentlyPlaying) 
+      if (serverQueue.playing) 
       {
         console.log("Currently playing, do not play the next song");
         return;
