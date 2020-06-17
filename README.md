@@ -37,7 +37,8 @@ YangYangBot is a discord music bot that will have similar features as Groovy and
 
 ## Known Issues
 * if the length of the song is more than an hour, then current progress is incorect because it only displays mm:ss.
-
+* skip did not work
+* dc disconnect; however, play another song will make it think it is still playing.
 ## Acknowledgement
 
 The original shell code is copied from https://github.com/TannerGabriel/discord-bot.git.  
