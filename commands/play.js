@@ -75,7 +75,7 @@ module.exports = {
           // cannot find any songs
           var textTitle = null;
           var msg = "Cannot find any song";
-          msgFormatter.formatTextMsg(message.channel, textTitle, msg);
+          msgFormatter.flashTextMessage(message.channel, textTitle, msg);
         }
       }
 
