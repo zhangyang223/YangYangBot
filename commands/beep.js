@@ -8,7 +8,7 @@ const textcolorPostfix = "\`\`\`";
 
 
 module.exports = {
-	name: 'click',
+	name: 'beep',
 	description: 'mini game, click as fast as you can',
 	aliases: [],
   async execute(message) 
