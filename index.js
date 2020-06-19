@@ -59,6 +59,12 @@ client.on('message', async message => {
 	const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 	
 	if (!message.content.startsWith(prefix)) return;
+	if (!command) 
+	{
+		console.log("Command: ###" + command + "### not found");
+		client.commands.get("help").execute(message);
+		return;
+	}
 
 	try {
 		console.log('Executing ' + commandName);

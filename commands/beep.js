@@ -19,6 +19,14 @@ module.exports = {
     const minigameName = "Who is the fastest?\n Click on " + emoji + " after the beep!";
 
 
+    function getNickName(message, user)
+    {
+      let guild = message.guild;
+      let member = guild.member(user);
+      let nickname = member ? member.displayName : null;
+      return nickname;
+    }
+
     function getGameDescription(count)
     {
       let msg = "Within " + count + " seconds";
@@ -116,9 +124,9 @@ module.exports = {
                 if (reaction.emoji.name === emoji && !user.bot)
                 {
                   let userTime = { username : null, start: null};
-                  userTime['username'] = user.username;
+                  userTime['username'] = getNickName(message, user);
                   userTime['start'] = new Date();
-                  console.log("inside filter" + userTime.username + "," + userTime.start.getTime());
+                  console.log("inside filter" + userTime.username + "," + getNickName(message, user) + "," + userTime.start.getTime());
                   scores.push(userTime);
                   return true;
                 }
