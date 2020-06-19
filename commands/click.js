@@ -16,13 +16,12 @@ module.exports = {
     const queue = message.client.queue;
     const serverQueue = message.client.queue.get(message.guild.id);
     const emoji = '👌';
-    const minigameName = "Who is the fastest?";
+    const minigameName = "Who is the fastest?\n Click on " + emoji + " after the beep!";
 
 
     function getGameDescription(count)
     {
-      let msg = "click on ";
-      msg += emoji + " after the beep! " + count + " seconds";
+      let msg = "Within " + count + " seconds";
       return msg;
     }
 
