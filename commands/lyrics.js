@@ -61,7 +61,7 @@ module.exports = {
           {
             console.log("Failed to find any lyrics");
           }
-          else if (lyrics > maxLyricLength)
+          else if (lyrics.length > maxLyricLength)
           {
             lyrics = lyrics.substring(0, maxLyricLength) + "...";
           }
