@@ -3,7 +3,7 @@ const msgFormatter = require("../util/formatTextMsg.js");
 const formatter = require("../util/songFormatter.js");
 const cleanURL = require("../util/cleanURL.js");
 const getLyrics = require("../play/getLyrics.js");
-const textColorPrefix = "\`\`\`CSS\n";
+const textColorPrefix = "\`\`\`javascript\n";
 const textcolorPostfix = "\`\`\`";
 
 
@@ -40,6 +40,7 @@ module.exports = {
     function createMessageEmbedDesc(desc)
     {
       var coloredText = textColorPrefix + desc + "\n" + textcolorPostfix;
+//      var coloredText = "**" + desc + "**\n" ;
 
       return new MessageEmbed()
        .setTitle(minigameName)
