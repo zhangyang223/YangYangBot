@@ -1,7 +1,10 @@
 const {MessageEmbed} = require("discord.js");
 const msgFormatter = require("../util/formatTextMsg.js");
+const formatter = require("../util/songFormatter.js");
 const cleanURL = require("../util/cleanURL.js");
 const getLyrics = require("../play/getLyrics.js");
+const textColorPrefix = "\`\`\`CSS\n";
+const textcolorPostfix = "\`\`\`";
 
 
 module.exports = {
@@ -34,6 +37,32 @@ module.exports = {
       )
     }
 
+    function createMessageEmbedDesc(desc)
+    {
+      var coloredText = textColorPrefix + desc + "\n" + textcolorPostfix;
+
+      return new MessageEmbed()
+       .setTitle(minigameName)
+      .setDescription(coloredText)
+      .setColor('#00bb00')
+      .addFields(
+        { name: '\u200B', value: '\u200B' }
+      )
+    }
+
+    function getScoreMessage(scores, startTime)
+    {
+      if (scores.length == 0)
+        return "No one won";
+
+      let msg = scores[0].username + " has Won!!!\n";
+      for (let i = 0; i < scores.length; i++)
+      {
+        let userTime = scores[i];
+        msg += (i+1) + ") " + formatter.postpad(userTime.username, 20) + " " + formatter.pad((userTime.start.getTime() - startTime.getTime()), 10) + "ms\n";
+      }
+      return msg;
+    }
 
     const voiceChannel = message.member.voice.channel;
     if (!voiceChannel)
@@ -74,38 +103,41 @@ module.exports = {
 
         try
         {
-          console.log("before play");
-  ////        let dispatcher = connection.play('C:\\Newman\\DiscordBot\\dev\\yangyangbot\\YangYangBot\\BeepPing-SoundBible.com-217088958.mp3', {volume: 10.0})
-  ////        let dispatcher = connection.play('C:\\Newman\\DiscordBot\\dev\\yangyangbot\\YangYangBot\\Censored_Beep-Mastercard-569981218.wav', {volume: 10.0})
-          let dispatcher = connection.play(__dirname + '/../Censored_Beep-Mastercard-569981218.wav', {volume: 10.0})
-  
-  //        let dispatcher = connection.play('../music_orig.wav')
-  //        let dispatcher = connection.play('C:\\Newman\\DiscordBot\\dev\\yangyangbot\\YangYangBot\\music_orig.wav')
-          .on("start", () => {console.log("playing beep starts at " + new Date().toLocaleTimeString()); })
+          let dispatcher = connection.play(__dirname + '/../Censored_Beep-Mastercard-569981218.wav', {volume: 1.0})
           .on("error", error => {console.log("error occurred during playing"); console.error(error); })
           .on("finish", () => 
-              {console.log("finished playing at " +  new Date().toLocaleTimeString());
-
+            {
+              let startTime = new Date();
+              let scores = [];
               let username = null;
+
               const filter = (reaction, user) => 
               {
                 if (reaction.emoji.name === emoji && !user.bot)
                 {
-                  username = user.username;
+                  let userTime = { username : null, start: null};
+                  userTime['username'] = user.username;
+                  userTime['start'] = new Date();
+                  console.log("inside filter" + userTime.username + "," + userTime.start.getTime());
+                  scores.push(userTime);
                   return true;
                 }
                 else
                   return false;
               };
               
-              msg.awaitReactions(filter, { max: 1, time: 3000, errors: ['time'] })
+              msg.awaitReactions(filter, {max: 300, time: 2000, errors: ['time'] })
                 .then(collected => {
-                  console.log(username  + ' won');
-                  msg.edit(createMessageEmbed(username  + ' won'));
+                  console.log(getScoreMessage(scores, startTime));
+                  
+                  msg.edit(createMessageEmbed(getScoreMessage(scores, startTime)));
                 })
                 .catch(collected => {
-                  console.log("At " +  new Date().toLocaleTimeString() + `, only ${collected.size} reacted.`);
-                  msg.edit(createMessageEmbed('no one won. try again'));
+                  
+                  msg.edit(createMessageEmbedDesc(getScoreMessage(scores, startTime)));
+
+//                  console.log("At " +  new Date().toLocaleTimeString() + `, only ${collected.size} reacted.`);
+//                  msg.edit(createMessageEmbed('no one won. try again'));
                 });
       
             });

@@ -16,17 +16,6 @@ module.exports =
       return tmpString;
     }
 
-    function postpad(text, length) 
-    {
-
-      var str = '' + text;
-      while (str.length < length) {
-          str = str + ' ';
-      }
-    
-      return str;
-    }
-
     function calculatePlayDuration(startTime)
     {
       if (startTime != null)
@@ -71,6 +60,18 @@ module.exports =
     }
    
     return str;
+  },
+
+  postpad(text, length) 
+  {
+
+    var str = '' + text;
+    while (str.length < length) {
+        str = str + ' ';
+    }
+  
+    return str;
   }
+
 
 };
