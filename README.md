@@ -40,6 +40,7 @@ YangYangBot is a discord music bot that will have similar features as Groovy and
 
 ## Known Issues
 * if the length of the song is more than an hour, then current progress is incorect because it only displays mm:ss.
+* concurrent issue when adding a playlist fast enough, the ordering is wrong.
 
 ## Acknowledgement
 

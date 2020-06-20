@@ -20,6 +20,11 @@ module.exports = {
 			{
 				if (serverQueue.connection.dispatcher != null)
 					serverQueue.connection.dispatcher.end();
+
+					serverQueue.voiceChannel.leave();
+					serverQueue.playing = false;
+					message.client.queue.delete(message.guild.id);
+		  
 			}
 			serverQueue.playing = false;
 			
