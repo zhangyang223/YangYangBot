@@ -27,6 +27,7 @@ YangYangBot is a discord music bot that will have similar features as Groovy and
 * add a web site, support server, fix up help
 * updated website for mobile support
 * added a mini game called bepp.
+* fixed when adding a playlist, sometimes still run into a problem that play list not added initially but added again later.
 
 ## Todo
 * investigate into adding a database support.
@@ -39,7 +40,6 @@ YangYangBot is a discord music bot that will have similar features as Groovy and
 
 ## Known Issues
 * if the length of the song is more than an hour, then current progress is incorect because it only displays mm:ss.
-* somehow when adding a playlist, sometimes still run into a problem that play list not added initially but added again later.
 
 ## Acknowledgement
 
