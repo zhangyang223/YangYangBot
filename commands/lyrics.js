@@ -2,6 +2,7 @@ const msgFormatter = require("../util/formatTextMsg.js");
 const cleanURL = require("../util/cleanURL.js");
 const getLyrics = require("../play/getLyrics.js");
 const { KSoftClient } = require('@ksoft/api');
+const parser = require("../util/parseArgs.js");
 
 const ksoft = new KSoftClient('a4c6aef23cdde42913dc6d70e4de4a90b52f110b');
 
@@ -14,10 +15,6 @@ module.exports = {
       const maxLyricLength = 2000;
 
       const serverQueue = message.client.queue.get(message.guild.id);
-      if (!serverQueue) 
-      {
-        return msgFormatter.formatTextMsg(message.channel, null, 'There is nothing playing.');;
-      }
 
       async function getLyrics(query)
       {
@@ -91,15 +88,32 @@ module.exports = {
         return encodeURI("https://mojim.com/" + query + ".html?u4");
       }
 
-      let query = findQueryText();
+      let query = parser.parse(message.content);
+
+      console.log("query=" + query);
+      let title = query;
+
+      if (query == null || query.length == 0)
+      {
+        if (!serverQueue) 
+        {
+          return msgFormatter.formatTextMsg(message.channel, null, 'There is nothing playing.');;
+        }
+        else
+        {
+          query = findQueryText();
+          title = serverQueue.songs[0].title;
+        }
+      }
+
       let lyrics = await getLyrics(query);
 
       if (lyrics != null)
       {
-        return msgFormatter.formatLyricsWithText(message.channel, serverQueue.songs[0].title, lyrics);
+        return msgFormatter.formatLyricsWithText(message.channel, title, lyrics);
       }
       else
-        return msgFormatter.formatLyrics(message.channel, serverQueue.songs[0].title, getExternalURL(query));
+        return msgFormatter.formatLyrics(message.channel, title, getExternalURL(query));
 
 	}
 };
