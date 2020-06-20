@@ -10,7 +10,7 @@ on:
 #    branches: [ master ]
   schedule:
     # * is a special character in YAML so you have to quote this string
-    - cron:  '0 2/6 ? * *'
+    - cron:  '33 2/1 ? * *'
 #   status:
 #     branches: [ master ]
 
