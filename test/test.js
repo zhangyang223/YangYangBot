@@ -12,6 +12,7 @@ const {google} = require('googleapis');
 const path = require('path');
 const {authenticate} = require('@google-cloud/local-auth');
 const {JWT} = require('google-auth-library');
+const keys = require('../secrets/MyProject-b427ed78b81d.json');
 
 const youtube = google.youtube('v3');
 

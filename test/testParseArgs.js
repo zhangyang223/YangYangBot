@@ -5,16 +5,6 @@ const cmd = "=move";
 
 describe("Test Parse Arguments", function() 
 {
-  it("No Argument", function() 
-  {
-    let input = cmd;
-//    let input2 = ';lyrics';
-
-    let actual = parser.parse(input);
-    let expected = [];
-    expect(actual).to.deep.equal(expected);
-  });
-
   it("Move Arguments 1", function() 
   {
     let input = cmd + ' 9,2';
