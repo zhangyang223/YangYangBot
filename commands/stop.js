@@ -2,8 +2,8 @@ const msgFormatter = require("../util/formatTextMsg.js");
 const dsConnection = require("../play/discordConnection.js");
 
 module.exports = {
-	name: 'skip',
-	description: 'Skip a song!',
+	name: 'stop',
+	description: 'Stop playing songs',
 	aliases: [],
 	execute(message) {
 
@@ -18,8 +18,8 @@ module.exports = {
 			
 			if (serverQueue != null && serverQueue.connection != null && serverQueue.connection.dispatcher != null)
 			{
+				dsConnection.setPlayable(message, false);
 				serverQueue.connection.dispatcher.end();
-//				dsConnection.setPlayable(message, true);
 			}
 		}
 		catch (error) {

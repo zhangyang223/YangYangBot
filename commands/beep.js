@@ -3,7 +3,7 @@ const msgFormatter = require("../util/formatTextMsg.js");
 const formatter = require("../util/songFormatter.js");
 const cleanURL = require("../util/cleanURL.js");
 const getLyrics = require("../play/getLyrics.js");
-const init = require("../play/initConnection.js");
+const dsConnection = require("../play/discordConnection.js");
 
 const textColorPrefix = "\`\`\`javascript\n";
 const textcolorPostfix = "\`\`\`";
@@ -89,12 +89,14 @@ module.exports =
     
     if (!serverQueue)
     {
-      await init.initializeVoiceConnection(message).then( connection => {
+      await dsConnection.open(message).then( connection => {
 
         serverQueue = message.client.queue.get(message.guild.id);
+        
         showGame(serverQueue.connection);
         });
-/*
+
+        /*
       try 
       {
         connection = await voiceChannel.join().then( showGame);
@@ -107,7 +109,7 @@ module.exports =
     }
     else
     {
-      if (serverQueue.playing)
+      if (dsConnection.canPlay(message))
       {
         msgFormatter.flashTextMessage(serverQueue.textChannel, "Cannot play mini game while songs are playing", "Please stop song playing");;
       }

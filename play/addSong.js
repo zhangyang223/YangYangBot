@@ -2,7 +2,7 @@
 const { Util } = require("discord.js");
 const getSongInfo = require("../play/getSongInfo.js");
 const msgFormatter = require("../util/formatTextMsg.js");
-const init = require("../play/initConnection.js");
+const dsConnection = require("../play/discordConnection.js");
 
 var addSongReturnVal = null;
 
@@ -37,7 +37,7 @@ module.exports =
 
       if (!serverQueue) 
       {
-        await init.initializeVoiceConnection(message).then( connection => 
+        await dsConnection.open(message).then( connection => 
           {
             serverQueue = message.client.queue.get(message.guild.id);
             console.log("adding song " + song.title + ","+ song.url + "," + song.length);

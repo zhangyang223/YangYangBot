@@ -11,7 +11,7 @@ module.exports = {
 	aliases: [],
     execute(message) 
     {
-        const args = parser.parseIntegers(prefix + 'remove', message.content);
+        const args = parser.parseIntegers(message.content);
         if (args == null || args.length < 1)
         {
             return message.reply('remove <pos>,[<endPos>] Remove a specific song(or songs) from queue');

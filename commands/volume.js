@@ -22,7 +22,7 @@ module.exports = {
 			
 			if (serverQueue != null && serverQueue.connection != null && serverQueue.connection.dispatcher != null)
 			{
-                const args = parser.parseIntegers(prefix + 'volume', message.content);
+                const args = parser.parseIntegers(message.content);
                 if (args == null)
                 {
                     return message.reply(this.name + ", " + this.description);

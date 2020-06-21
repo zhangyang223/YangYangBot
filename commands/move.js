@@ -12,7 +12,7 @@ module.exports = {
 	aliases: [],
     execute(message) 
     {
-        const args = parser.parseIntegers(prefix + 'move', message.content);
+        const args = parser.parseIntegers( message.content);
         if (args == null || args.length != 2)
         {
             return message.reply('move [track], [new position] Move the songs into new position');

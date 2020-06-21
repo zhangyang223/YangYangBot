@@ -4,7 +4,7 @@ const { Util } = require("discord.js");
 
 module.exports = 
 {
-    async initializeVoiceConnection(message) 
+    async open(message) 
     {
       const queueContruct = 
       {
@@ -13,7 +13,7 @@ module.exports =
         connection: null,
         songs: [],
         volume: 5,
-        playing: false
+        canPlay: true
       };
       message.client.queue.set(message.guild.id, queueContruct);
       try 
@@ -27,7 +27,33 @@ module.exports =
         throw err.message;
       }
       return connection;
+    },
+
+    async close(message)
+    {
+      let serverQueue = message.client.queue.get(message.guild.id);
+
+      if (serverQueue.connection.dispatcher != null)
+        serverQueue.connection.dispatcher.end();
+
+      serverQueue.voiceChannel.leave();
+			message.client.queue.delete(message.guild.id);
+
+    },
+
+    canPlay(message)
+    {
+      let serverQueue = message.client.queue.get(message.guild.id);
+      return serverQueue != null && serverQueue.canPlay;
+    },
+
+    setPlayable(message, value)
+    {
+      let serverQueue = message.client.queue.get(message.guild.id);
+      if (serverQueue)
+        serverQueue.canPlay = value;
     }
-};
+
+  };
 
 
