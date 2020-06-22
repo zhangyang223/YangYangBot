@@ -1,4 +1,5 @@
 const msgFormatter = require("../util/formatTextMsg.js");
+const dsConnection = require("../play/discordConnection.js");
 
 module.exports = {
 	name: 'disconnect',
@@ -18,11 +19,9 @@ module.exports = {
 
 			if (serverQueue.connection != null)
 			{
-				if (serverQueue.connection.dispatcher != null)
-					serverQueue.connection.dispatcher.end();
+				dsConnection.setPlayable(message, false);
+				dsConnection.close(message);
 			}
-			serverQueue.playing = false;
-			
         }
     }
 };

@@ -17,13 +17,9 @@ module.exports =
   {
     var videoList = [];
     let recurse = 0;
+    const MAX_TRY = 5;
 
     if (!message || !url) return;
-
-    async function addSongFromPlaylist(message, url)
-    {
-        await addSong.add(message, url);
-    }
 
     async function addSongsFromPlaylist(message, videoList)
     {
@@ -60,44 +56,51 @@ module.exports =
 
     async function requestCB(err, res, body)
     {
-        if (err) {
+        if (err) 
+        {
             console.err('Error: ', + err);
             throw err;
-        } else {
-            var handler = new htmlparser.DefaultHandler(function(err, dom) {
-                if (err) {
+        } 
+        else 
+        {
+            var handler = new htmlparser.DefaultHandler(function(err, dom) 
+            {
+                if (err) 
+                {
                     console.err('Error: ', + err);
                     throw err;
-                } else {
-
+                } 
+                else 
+                {
                     var list = select(dom, '.pl-video-title-link');
 
-                    if (list.length == 0)
+                    if (list.length == 0 && recurse < MAX_TRY)
                     {
                         console.log("did not find songs, recurse");
                         recurse++;
                         sendRequest();
                     }
                     else
+                    {
                         console.log("inside RequestCB DefaultHandler, list.length=", list.length);
-                    
-                    list.forEach(function(node, i) {
-                        var url = 'https://www.youtube.com' +
-                            node.attribs.href.replace(/&amp;/g, '&');
 
-                        var uriAmpIndex = url.indexOf('&');
-                        if (uriAmpIndex != -1)
+                        list.forEach(function(node, i) 
                         {
-                            url = url.substring(0, uriAmpIndex);
-                        }
+                            var url = 'https://www.youtube.com' +
+                                node.attribs.href.replace(/&amp;/g, '&');
 
-                        var padLength = String(list.length).length;
-                        var index = (Array(padLength).join('0') + (i+1)).slice(-padLength);
+                            var uriAmpIndex = url.indexOf('&');
+                            if (uriAmpIndex != -1)
+                            {
+                                url = url.substring(0, uriAmpIndex);
+                            }
 
-                        videoList.push({
-                            url: url
+                            var padLength = String(list.length).length;
+                            var index = (Array(padLength).join('0') + (i+1)).slice(-padLength);
+
+                            videoList.push({url: url});
                         });
-                    });
+                    }
                 }
             });
 
@@ -106,7 +109,13 @@ module.exports =
             await parser.parseComplete(body);
 
             if (videoList.length == 0)
-                msgFormatter.flashTextMessage(message.channel, null, "failed to find any songs in the playlist");
+            {
+                if (recurse >= MAX_TRY)
+                {
+                    msgFormatter.flashTextMessage(message.channel, null, "failed to find any songs in the playlist");
+                }
+                //otherwise, just continue
+            }
             else
             {
                 msgFormatter.flashTextMessage(message.channel, null, "added " + videoList.length + " songs to the queue!");;

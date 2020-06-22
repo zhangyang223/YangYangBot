@@ -3,6 +3,7 @@ const { Util } = require("discord.js");
 const ytdl = require("ytdl-core");
 const printCurrentQueue = require("../util/printCurrentQueue.js");
 const msgFormatter = require("../util/formatTextMsg.js");
+const dsConnection = require("../play/discordConnection.js");
 
 module.exports = {
   async play(message) {
@@ -163,38 +164,18 @@ module.exports = {
     function playSongAux(message)
     {
       var id = serverQueue.songs.length;
-      console.log("playSongAux starting(" + id +"," + serverQueue.playing + ")");
+      console.log("playSongAux starting(" + id +"," + dsConnection.canPlay(message) + ")");
       try 
       {
 
-        if (!serverQueue)
+        if (!serverQueue || serverQueue.songs.length == 0)
         {
-          console.log("serverQ is null");
-          currentlyPlaying = false;
+          console.log("serverQ is null || songs length = 0");
+          dsConnection.close(message);
           return;
         }
 
-        if (serverQueue.songs.length == 0) 
-        {
-
-          /*
-          DISABLE DEFAULT SONG FOR NOW
-          const defaultSong = {
-            title: '小蘋果',
-            url: 'https://www.youtube.com/watch?v=FzhvsW2wc_M',
-            tts: false
-          };
-
-          serverQueue.songs.push(defaultSong);
-          playcoreMsg(this, defaultSong, "Start playing default song");
-          */
-          serverQueue.voiceChannel.leave();
-          queue.delete(guild.id);
-          serverQueue.playing = false;
-          return;
-        }
-
-        serverQueue.playing = true;
+        dsConnection.setPlayable(message, false);
         var song = serverQueue.songs[0];
         announce(song);
 //        playSongWithMsg(song);
@@ -212,7 +193,7 @@ module.exports = {
     function playSong(message)
     {
 
-      if (serverQueue.playing) 
+      if (!dsConnection.canPlay(message)) 
       {
         console.log("Currently playing, do not play the next song");
         return;

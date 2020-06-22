@@ -9,7 +9,7 @@ module.exports = {
 	execute(message) {
 		const textTitle = "Command List";
 		const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-		var str = "";
+		var str = "To start: " + prefix + "play <song name>\n\n";
 
 		function showAlias(aliases)
 		{

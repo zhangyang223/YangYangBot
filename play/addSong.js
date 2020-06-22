@@ -2,6 +2,7 @@
 const { Util } = require("discord.js");
 const getSongInfo = require("../play/getSongInfo.js");
 const msgFormatter = require("../util/formatTextMsg.js");
+const dsConnection = require("../play/discordConnection.js");
 
 var addSongReturnVal = null;
 
@@ -12,7 +13,7 @@ module.exports =
     try 
     {
       const queue = message.client.queue;
-      const serverQueue = message.client.queue.get(message.guild.id);
+      let serverQueue = message.client.queue.get(message.guild.id);
       const voiceChannel = message.member.voice.channel;
       var songInfo = await getSongInfo.get(url);
 
@@ -36,37 +37,23 @@ module.exports =
 
       if (!serverQueue) 
       {
-        const queueContruct = 
-        {
-          textChannel: message.channel,
-          voiceChannel: voiceChannel,
-          connection: null,
-          songs: [],
-          volume: 5,
-          playing: false
-        };
+        await dsConnection.open(message).then( connection => 
+          {
+            serverQueue = message.client.queue.get(message.guild.id);
+            console.log("adding song " + song.title + ","+ song.url + "," + song.length);
+            serverQueue.songs.push(song);
+          });
 
-        queue.set(message.guild.id, queueContruct);
-
-        console.log("adding song " + song.title + ","+ song.url + "," + song.length + "," + song.query);
-        queueContruct.songs.push(song);
-
-        try {
-          var connection = await voiceChannel.join();
-          queueContruct.connection = connection;
-        } catch (err) {
-          console.log("error=" + err);
-          queue.delete(message.guild.id);
-          throw err.message;
-        }
       } 
-      else 
+      else
       {
 
         console.log("adding song " + song.title + ","+ song.url + "," + song.length);
         serverQueue.songs.push(song);
       }
-    } catch (error) {
+    } 
+    catch (error) 
+    {
       console.error(error);
       throw error.message;
 
@@ -87,3 +74,30 @@ module.exports =
   }
 
 };
+/*
+async function initializeVoiceConnection(message) 
+{
+  const queueContruct = 
+  {
+    textChannel: message.channel,
+    voiceChannel: message.member.voice.channel,
+    connection: null,
+    songs: [],
+    volume: 5,
+    playing: false
+  };
+  message.client.queue.set(message.guild.id, queueContruct);
+  try 
+  {
+    var connection = await message.member.voice.channel.join();
+    queueContruct.connection = connection;
+  }
+  catch (err) 
+  {
+    console.log("error=" + err);
+    message.client.queue.delete(message.guild.id);
+    throw err.message;
+  }
+}
+
+*/

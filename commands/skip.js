@@ -1,4 +1,5 @@
 const msgFormatter = require("../util/formatTextMsg.js");
+const dsConnection = require("../play/discordConnection.js");
 
 module.exports = {
 	name: 'skip',
@@ -14,17 +15,11 @@ module.exports = {
 				msgFormatter.formatTextMsg(message.channel, 'Error', 'You have to be in a voice channel to stop the music!');
 				return;
 			}
-
-			// if nothing is playing, then that is nothing to skip.
-//			if (!serverQueue || !serverQueue.connection || !serverQueue.connection.dispatcher )
-//			{
-//				msgFormatter.formatTextMsg(message.channel, 'Error', 'There is no song in queue');
-//			} 
 			
 			if (serverQueue != null && serverQueue.connection != null && serverQueue.connection.dispatcher != null)
 			{
-				serverQueue.playing = false;
 				serverQueue.connection.dispatcher.end();
+//				dsConnection.setPlayable(message, true);
 			}
 		}
 		catch (error) {
