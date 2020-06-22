@@ -33,11 +33,16 @@ module.exports =
     {
       let serverQueue = message.client.queue.get(message.guild.id);
 
-      if (serverQueue.connection.dispatcher != null)
-        serverQueue.connection.dispatcher.end();
+      if (serverQueue != null)
+      {
+        if (serverQueue.connection != null && serverQueue.connection.dispatcher != null)
+        {
+          serverQueue.connection.dispatcher.end();
+        }
+        serverQueue.voiceChannel.leave();
+        message.client.queue.delete(message.guild.id);
+      } 
 
-      serverQueue.voiceChannel.leave();
-			message.client.queue.delete(message.guild.id);
 
     },
 

@@ -115,8 +115,7 @@ module.exports = {
 
     async function playcoreMsg(song, msg)
     {
-// do not show this because it generates too many message notifications.
-///      displayMsg(msg, song);
+      displayMsg(msg, song);
       playcore(song);
 
 //      playcoreMock(song);
@@ -129,6 +128,7 @@ module.exports = {
 
     function announce(song)
     {
+      /*
       console.log("announce");
       printCurrentQueue.print(message);
       try
@@ -154,11 +154,14 @@ module.exports = {
           .catch(console.error);
   
         queueSong();
+
       }
       catch (error) {
         console.log( error);
         return;
       }
+      */
+     playSongWithMsg(song);
     }
 
     function playSongAux(message)
