@@ -86,19 +86,22 @@ module.exports =
 
                         list.forEach(function(node, i) 
                         {
-                            var url = 'https://www.youtube.com' +
-                                node.attribs.href.replace(/&amp;/g, '&');
-
-                            var uriAmpIndex = url.indexOf('&');
-                            if (uriAmpIndex != -1)
+                            if (node.attribs.href != null)
                             {
-                                url = url.substring(0, uriAmpIndex);
+                                var url = 'https://www.youtube.com' +
+                                    node.attribs.href.replace(/&amp;/g, '&');
+
+                                var uriAmpIndex = url.indexOf('&');
+                                if (uriAmpIndex != -1)
+                                {
+                                    url = url.substring(0, uriAmpIndex);
+                                }
+
+                                var padLength = String(list.length).length;
+                                var index = (Array(padLength).join('0') + (i+1)).slice(-padLength);
+
+                                videoList.push({url: url});
                             }
-
-                            var padLength = String(list.length).length;
-                            var index = (Array(padLength).join('0') + (i+1)).slice(-padLength);
-
-                            videoList.push({url: url});
                         });
                     }
                 }
