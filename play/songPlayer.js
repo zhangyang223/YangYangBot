@@ -85,7 +85,13 @@ module.exports = {
             }
           })
           .on("start", () => {console.log("playing starts at " + new Date().toLocaleTimeString()); song.startTime = new Date();})
-          .on("error", error => {console.log("error occurred during playing"); console.error(error); playSongAux(message);});
+          .on("error", error => {
+              console.log("error occurred during playing"); 
+              console.error(error); 
+              serverQueue.songs.shift(); 
+              displayMsg("Error Playing ");
+              playSongAux(message);
+            });
 
         dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
 

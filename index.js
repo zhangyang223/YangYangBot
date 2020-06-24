@@ -61,7 +61,7 @@ client.on('message', async message => {
 	if (!message.content.startsWith(prefix)) return;
 	if (!command) 
 	{
-		console.log("Command: ###" + command + "### not found");
+		console.log("Command: ###" + command + "### not found, message.content=" + message.content + " by " + message.author.username);
 		client.commands.get("help").execute(message);
 		return;
 	}
