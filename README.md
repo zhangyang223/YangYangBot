@@ -30,6 +30,7 @@ YangYangBot is a discord music bot that will have similar features as Groovy and
 * fixed when adding a playlist, sometimes still run into a problem that play list not added initially but added again later.
 
 ## Todo
+* needs to find a way to indicate if the server is up or down, including possibly handle the 6 hours recycle
 * investigate into adding a database support.
 * identify the audio stream and prefer opus first.
 * try to link up a radio site(possible?), https://listen.moe/

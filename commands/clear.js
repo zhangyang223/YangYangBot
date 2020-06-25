@@ -9,12 +9,16 @@ module.exports = {
 		if (!message.member.voice.channel) 
 		{
 			msgFormatter.formatTextMsg(message.channel, 'Error', 'You have to be in a voice channel to clear queue.');
+			return;
 		}
 
 		if (serverQueue != null)
 		{
             if (serverQueue.songs != null)
                 serverQueue.songs.splice(1, serverQueue.songs.length - 1);
-        }
+		}
+		
+		msgFormatter.flashTextMessage(message.channel, null, "All songs have been removed.");
+
     }
 };
