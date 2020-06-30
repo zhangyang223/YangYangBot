@@ -10,6 +10,7 @@ const addSong = require("../play/addSong.js");
 const songPlayer = require("../play/songPlayer.js");
 const printCurrentQueue = require("../util/printCurrentQueue.js");
 const msgFormatter = require("../util/formatTextMsg.js");
+const playlist = require("../youtube/getPlaylist.js");
 
 module.exports = 
 {
@@ -24,11 +25,12 @@ module.exports =
     async function addSongsFromPlaylist(message, videoList)
     {
         var i = 0;
+         // videoList[i].url;
 
-        console.log(i + ") " + videoList[i].url + " added");
+        console.log(i + ") " + videoList[i] + " added");
         try
         {
-            await addSong.add(message, videoList[i].url);
+            await addSong.add(message, videoList[i]);
             songPlayer.play(message);
         }
         catch(error)
@@ -38,10 +40,10 @@ module.exports =
 
         for (++i;i < videoList.length; i++) 
         {
-            console.log(i + ") " + videoList[i].url + " added");
+            console.log(i + ") " + videoList[i] + " added");
             try
             {
-                await addSong.add(message, videoList[i].url);
+                await addSong.add(message, videoList[i]);
                 songPlayer.play(message);
             }
             catch(error)
@@ -144,6 +146,23 @@ module.exports =
     }
 
     recurse = 0;
-    sendRequest();
+//    sendRequest();
+
+    async function displayMessageAndAdd(r)
+    {
+        if (r.length == 0)
+        {
+            msgFormatter.flashTextMessage(message.channel, null, "failed to find any songs in the playlist");
+        }
+        else
+        {
+            msgFormatter.flashTextMessage(message.channel, null, "added " + r.length + " songs to the queue!");;
+
+            await addSongsFromPlaylist(message, r);
+            console.log("finished songPlayer.play");
+        }
+    }
+
+    playlist.get(url).then((r) => {displayMessageAndAdd(r);});
   }
 }

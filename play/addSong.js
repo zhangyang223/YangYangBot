@@ -21,7 +21,7 @@ module.exports =
       {
         const errMsg = "Failed to retrieve song based on " + message.content;
         console.error (errMsg);
-        throw errMsg;
+        throw new Error(errMsg);
       }
 
       const song = {

@@ -28,6 +28,7 @@ module.exports =
       catch (error) 
       {
         console.log("Video \"" + inputURL + "\" is not found");
+        console.error(error);
 
         return null;
       }
