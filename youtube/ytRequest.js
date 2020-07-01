@@ -3,8 +3,6 @@ var cheerio = require('cheerio');
 const request = require('request-promise');
 var expect    = require("chai").expect;
 const path = require('path');
-const search = require('./search');
-//const { result } = require('underscore');
 
 const playlistTag = 'playlistVideoRenderer';
 const searchTag = 'videoRenderer';

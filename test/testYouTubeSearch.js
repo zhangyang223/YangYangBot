@@ -1,5 +1,4 @@
 let expect    = require("chai").expect;
-const ytSearch = require("../youtube/search.js");
 const ytUtil = require("../youtube/ytRequest.js");
 
 const queryText = "Frozen";
@@ -7,11 +6,6 @@ const LIMIT = 100;
 
 describe("Test Search", function() 
 {
-  /*
-  it("Search", function() {
-    ytSearch.searchYouTube(queryText).then((result) => { console.log("result=" + result); expect(result).not.equal(null);});
-  });
-  */
   it("Search", function() 
   {
     for (let i = 0; i < LIMIT; i++)
