@@ -3,8 +3,10 @@ const addPlaylist = require("../play/addPlaylist.js");
 const addSong = require("../play/addSong.js");
 const cleanURL = require("../util/cleanURL.js");
 const songPlayer = require("../play/songPlayer.js");
-const ytSearch = require("../youtube/search.js");
+const ytRequest = require("../youtube/ytRequest.js");
 const msgFormatter = require("../util/formatTextMsg.js");
+const parser = require("../util/parseArgs.js");
+
 
 module.exports = {
   name: "play",
@@ -35,15 +37,18 @@ module.exports = {
 //        );
       }
 
-      var inputText = cleanURL.clean(message.content);
+      let args = parser.parse(message.content);
+//      var inputText = cleanURL.clean(message.content);
 
-      if (inputText == null || inputText.length == 0)
+      if (args == null || args.length == 0)
       {
         var textTitle = "User Error";
         var msg = "Please enter a url or a song to search";
         msgFormatter.formatTextMsg(message.channel, textTitle, msg);
         return;
-    }
+      }
+
+      let inputText = args[0];
 
       if (inputText.startsWith('http'))
       {
@@ -64,7 +69,7 @@ module.exports = {
       {
         // it is not an URL, search
         console.log("this is a text");
-        var url = await ytSearch.searchYouTube(inputText);
+        var url = await ytRequest.search(inputText);
         if (url != null)
         {
           await addSong.addWithMsg(message, url);

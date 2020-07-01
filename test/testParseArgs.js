@@ -15,6 +15,24 @@ describe("Test Parse Arguments", function()
     expect(actual).to.deep.equal(expected);
   });
 
+  it("One Argument", function() 
+  {
+    let input = cmd + " abc";
+
+    let actual = parser.parse(input);
+    let expected = ['abc'];
+    expect(actual).to.deep.equal(expected);
+  });
+
+  it("One Argument With Space", function() 
+  {
+    let input = cmd + "  abc";
+
+    let actual = parser.parse(input);
+    let expected = ['abc'];
+    expect(actual).to.deep.equal(expected);
+  });
+
   it("Move Arguments 1", function() 
   {
     let input = cmd + ' 9,2';

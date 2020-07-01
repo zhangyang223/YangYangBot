@@ -201,7 +201,7 @@ describe("Unit Test", function()
     expect(expected).to.equal(ytData.items[0].id.videoId);
   });
 
-  it("Test Retrieving youtube search using SOUP", function() 
+/*  it("Test Retrieving youtube search using SOUP", function() 
   {
     let url = "https://www.youtube.com/results?search_query=Frozen";
 //    let url = "https://www.youtube.com/playlist?list=PLYPW-sfMha5bKoBaVlnaPf80vPeyIyh7O";
@@ -275,8 +275,8 @@ describe("Unit Test", function()
     getSongs();
   
   });
-
-
+*/
+/*
   it("Test Retrieving youtube search using Cheerio", function() 
   {
     let url1 = "https://www.youtube.com/results?search_query=Frozen";
@@ -313,7 +313,7 @@ describe("Unit Test", function()
             var yturl = 'https://www.youtube.com' + $(this).attr('href');
             videoListFromPromise.push(yturl);
           });
-        console.log("found " + videoListFromPromise.length + " songs from Cheerio Promise");
+//        console.log("found " + videoListFromPromise.length + " songs from Cheerio Promise");
         if (videoListFromPromise.length == 0)
         {
           console.log("Recurse");          
@@ -327,7 +327,7 @@ describe("Unit Test", function()
     parsePromise(url1);
     console.log("after parsePromise");
   });
-
+*/
 });
 
 

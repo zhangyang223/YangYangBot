@@ -10,7 +10,7 @@ const addSong = require("../play/addSong.js");
 const songPlayer = require("../play/songPlayer.js");
 const printCurrentQueue = require("../util/printCurrentQueue.js");
 const msgFormatter = require("../util/formatTextMsg.js");
-const playlist = require("../youtube/getPlaylist.js");
+const ytRequest = require("../youtube/ytRequest.js");
 
 module.exports = 
 {
@@ -163,6 +163,6 @@ module.exports =
         }
     }
 
-    playlist.get(url).then((r) => {displayMessageAndAdd(r);});
+    ytRequest.get(url).then((r) => {displayMessageAndAdd(r);});
   }
 }

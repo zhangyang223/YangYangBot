@@ -67,7 +67,7 @@ client.on('message', async message => {
 	}
 
 	try {
-		console.log('Executing ' + commandName);
+		console.log('Executing ' + commandName + ", message.content=###" + message.content + "###");
 		if(commandName == "ban" || commandName == "userinfo") {
 			command.execute(message, client);
 		} else 
