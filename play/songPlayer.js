@@ -13,7 +13,7 @@ module.exports = {
 
     async function displayMsg(msg, song)
     {
-        return msgFormatter.flashTextMessage(serverQueue.textChannel, null, `${msg}: ${song.title}`);;
+        return msgFormatter.flashTextMessage(serverQueue.textChannel, null, `${msg} ${song.title}`);;
     }
 
     let totalDownload = -1;
@@ -76,7 +76,8 @@ module.exports = {
                 console.log("Song was finished Successfully (" + totalDownload + "," + totalLength + ")\n");
               }
               // play the next song
-              serverQueue.songs.shift();
+//              serverQueue.songs.shift();
+              serverQueue.current++;
               playSongAux(message);
             }
             catch (err)
@@ -88,7 +89,8 @@ module.exports = {
           .on("error", error => {
               console.log("error occurred during playing"); 
               console.error(error); 
-              serverQueue.songs.shift(); 
+//              serverQueue.songs.shift(); 
+              serverQueue.current++;
               displayMsg("Error Playing ");
               playSongAux(message);
             });
@@ -109,7 +111,8 @@ module.exports = {
       try
       {
         console.log("playing song");
-        serverQueue.songs.shift();
+//        serverQueue.songs.shift();
+        serverQueue.current++;
         playSong(message);
       }
       catch (err)
@@ -129,7 +132,7 @@ module.exports = {
 
     function playSongWithMsg(song)
     {
-      playcoreMsg(song, "Start playing")
+      playcoreMsg(song, "Start playing " + (serverQueue.current + 1) + ") ")
     }
 
     function announce(song)
@@ -184,11 +187,15 @@ module.exports = {
           return;
         }
 
+        if (serverQueue.current >= serverQueue.songs.length)
+        {
+          serverQueue.current = 0;
+        }
+
         dsConnection.setPlayable(message, false);
-        var song = serverQueue.songs[0];
+        var song = serverQueue.songs[serverQueue.current];
         announce(song);
 //        playSongWithMsg(song);
-
         console.log("playSongAux finished(" + id + ")");
       } 
       catch (err) 

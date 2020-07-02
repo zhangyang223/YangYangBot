@@ -1,8 +1,8 @@
 const msgFormatter = require("../util/formatTextMsg.js");
 
 module.exports = {
-	name: 'skip',
-	description: 'Skip a song!',
+	name: 'back',
+	description: 'Play previous song',
 	aliases: [],
 	execute(message) {
 
@@ -17,8 +17,17 @@ module.exports = {
 			
 			if (serverQueue != null && serverQueue.connection != null && serverQueue.connection.dispatcher != null)
 			{
-				serverQueue.songs[serverQueue.current].startTime = null;
-				serverQueue.connection.dispatcher.end();
+				if (serverQueue.current > 1)
+				{
+					serverQueue.songs[serverQueue.current].startTime = null;
+					serverQueue.connection.dispatcher.end();
+					serverQueue.current -= 2;
+				}
+				else
+				{
+					msgFormatter.flashTextMessage(message.channel, 'Error', 'No previous song');
+				}
+
 			}
 		}
 		catch (error) {

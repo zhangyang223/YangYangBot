@@ -28,9 +28,11 @@ YangYangBot is a discord music bot that will have similar features as Groovy and
 * updated website for mobile support
 * added a mini game called bepp.
 * fixed when adding a playlist, sometimes still run into a problem that play list not added initially but added again later.
+* feature: keep the song queue and move to next song without deleting, change queue display to indicate current song position, add jump to set current song, add back, fix np
 
 ## Todo
-* needs to find a way to indicate if the server is up or down, including possibly handle the 6 hours recycle
+* feature：support search result and select song based on search result.
+* optimize adding playlist.  when adding a long playlist, it takes a while.
 * investigate into adding a database support.
 * identify the audio stream and prefer opus first.
 * try to link up a radio site(possible?), https://listen.moe/

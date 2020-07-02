@@ -30,16 +30,16 @@ module.exports = {
                 let track = args[0];
                 let pos = args[1];
 
-                if ( track < 1 || track >= maxQueueSize || pos < 1 || pos >= maxQueueSize)
+                if ( track < 1 || track > maxQueueSize || pos < 1 || pos > maxQueueSize)
                 {
                     return message.reply('Please input valid track and position numbers')
                 }
                 else
                 {
-                    let tmp = serverQueue.songs.splice(track,1);
+                    let tmp = serverQueue.songs.splice(track - 1,1);
                     if (tmp != null && tmp.length == 1)
                     {
-                        serverQueue.songs.splice(pos, 0, tmp[0]);
+                        serverQueue.songs.splice(pos - 1, 0, tmp[0]);
 
                         return msgFormatter.formatTextMsg(message.channel, null, "Moved " + tmp[0].title + " to position " + pos);;
                     }

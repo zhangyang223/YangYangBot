@@ -12,6 +12,7 @@ module.exports =
         voiceChannel: message.member.voice.channel,
         connection: null,
         songs: [],
+        current: 0,
         volume: 5,
         canPlay: true
       };

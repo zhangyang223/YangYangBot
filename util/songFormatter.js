@@ -4,7 +4,7 @@ const maxDisplaySize = 40;
 module.exports = 
 {
 
-  format(song) 
+  format(song, showPlaytime) 
   {
     function formatDuration(seconds)
     {
@@ -37,13 +37,15 @@ module.exports =
         result += text;
       result += " ";
 
-      var playDuration = calculatePlayDuration(song.startTime);
-      if (playDuration != null)
+      if (showPlaytime)
       {
-        result += formatDuration(playDuration);
-        result += "/";
+        var playDuration = calculatePlayDuration(song.startTime);
+        if (playDuration != null)
+        {
+          result += formatDuration(playDuration);
+          result += "/";
+        }
       }
-
       result += formatDuration(song.length);
       return result;
     }  

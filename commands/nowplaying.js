@@ -13,7 +13,7 @@ module.exports = {
 //			return message.channel.send('There is nothing playing.');
 		}
 
-		return msgFormatter.flashTextMessage(message.channel, null, "Now playing: " + songFormatter.format(serverQueue.songs[0]));;
+		return msgFormatter.flashTextMessage(message.channel, null, "Now playing: " + (serverQueue.current + 1) + ") " + songFormatter.format(serverQueue.songs[serverQueue.current], true));;
 		//		return message.channel.send(`Now playing: ${serverQueue.songs[0].title}`);
 	},
 };
