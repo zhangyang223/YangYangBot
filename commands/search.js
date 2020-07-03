@@ -43,6 +43,7 @@ module.exports = {
           .catch(() => 
           {
 //            textChannel.send('You did not enter any input!');
+            msg.delete();
           });
       });      
     }

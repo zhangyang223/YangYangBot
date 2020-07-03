@@ -1,7 +1,7 @@
 const { Util } = require("discord.js");
 const addPlaylist = require("../play/addPlaylist.js");
-const addSong = require("../play/addSong.js");
 const cleanURL = require("../util/cleanURL.js");
+const addSong = require("../play/addSong.js");
 const songPlayer = require("../play/songPlayer.js");
 const ytRequest = require("../youtube/ytRequest.js");
 const msgFormatter = require("../util/formatTextMsg.js");

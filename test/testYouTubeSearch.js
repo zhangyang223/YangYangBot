@@ -2,7 +2,7 @@ let expect    = require("chai").expect;
 const ytUtil = require("../youtube/ytRequest.js");
 
 const queryText = "Frozen";
-const LIMIT = 100;
+const LIMIT = 1;
 
 describe("Test Search", function() 
 {

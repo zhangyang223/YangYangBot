@@ -15,6 +15,7 @@
   "author": "Zhang Yang",
   "license": "MIT",
   "dependencies": {
+    "@actions/artifact": "^0.3.2",
     "@discordjs/opus": "^0.1.0",
     "@google-cloud/local-auth": "^0.1.0",
     "@ksoft/api": "^3.1.9",
