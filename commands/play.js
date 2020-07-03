@@ -56,7 +56,7 @@ module.exports = {
         if (url.includes("/playlist?"))
         {
           console.log("this is a playlist");
-          await addPlaylist.add(message, url);
+          addPlaylist.add(message, url);
         }
         else
         {
@@ -69,9 +69,10 @@ module.exports = {
       {
         // it is not an URL, search
         console.log("this is a text");
-        var url = await ytRequest.search(inputText);
-        if (url != null)
+        var urlList = await ytRequest.search(inputText);
+        if (urlList != null && urlList.length > 0)
         {
+          let url = urlList[0].url;
           await addSong.addWithMsg(message, url);
           songPlayer.play(message);
         }

@@ -7,6 +7,8 @@ const path = require('path');
 const playlistTag = 'playlistVideoRenderer';
 const searchTag = 'videoRenderer';
 const secondTag = 'videoId';
+const playlistTitleTag = 'simpleText';
+const searchTitleTag = 'text';
 
 
 //let result = [];
@@ -31,13 +33,14 @@ module.exports =
                     yturl = yturl.substring(0, uriAmpIndex);
                 }
         
-                videoListFromPromise.push(yturl);
+                let element = {url: yturl, title: ""};
+                videoListFromPromise.push(element);
             });
         
             if (videoListFromPromise.length == 0)
             {
                 // cannot use static html to find it.  use script
-                videoListFromPromise = processScript($, tag);
+                videoListFromPromise = processScript($, tag, playlistTitleTag);
             }
 
             console.log("playlist found " + videoListFromPromise.length + " songs from Cheerio Promise");
@@ -56,24 +59,22 @@ module.exports =
         function process($)
         {
             let videoListFromPromise = [];
-            let result = "";
         
-            $('.yt-lockup-thumbnail a').each(function () 
+            $('.yt-lockup-title a').each(function () 
             {
                 var yturl = 'https://www.youtube.com' + $(this).attr('href');
-                videoListFromPromise.push(yturl);
+                let element = {url: yturl, title: $(this).attr('title')};
+                videoListFromPromise.push(element);
             });
         
             if (videoListFromPromise.length == 0)
             {
                 // cannot use static html to find it.  use script
-                videoListFromPromise = processScript($, tag);
+                videoListFromPromise = processScript($, tag, searchTitleTag);
             }
 
             console.log("search found " + videoListFromPromise.length + " songs from Cheerio Promise");
-            if (videoListFromPromise.length > 0)
-                result = videoListFromPromise[0];
-            return result;
+            return videoListFromPromise;
         }
 
         let result = await sendRequest(url, process);
@@ -81,7 +82,7 @@ module.exports =
     }
 };
 
-function getVideoList(text, startingIndex, firstTag)
+function getVideoList(text, startingIndex, firstTag, thirdTag)
 {
     let index = startingIndex;
     let result = new Set();
@@ -96,16 +97,23 @@ function getVideoList(text, startingIndex, firstTag)
         let videoId = text.substring(firstQuoteIndex + 1, secondQuoteIndex);
         var yturl = 'https://www.youtube.com/watch?v='+ videoId;
 
-//        console.log("adding " + yturl);
-        result.add(yturl);
+        let thirdTagIndex = text.indexOf(thirdTag, secondQuoteIndex);
+        let thirdQuoteIndex = text.indexOf('\"', thirdTagIndex + thirdTag.length + 1);
+        let fourthQuoteIndex = text.indexOf('\"', thirdQuoteIndex + 1);
+        let songTitle = text.substring(thirdQuoteIndex + 1, fourthQuoteIndex);
 
-        firstTagIndex = text.indexOf(firstTag, secondQuoteIndex + 1);
+        let element = {url: yturl, title: songTitle};
+
+//        console.table(element);
+        result.add(element);
+
+        firstTagIndex = text.indexOf(firstTag, fourthQuoteIndex + 1);
     }
 
     return result;
 }
 
-function processScript($, tag)
+function processScript($, tag, titleTag)
 {
     // {"playlistVideoRenderer":{"videoId":"2zaJopX5a4w"
     let scriptTag = 'ytInitialData';
@@ -117,7 +125,7 @@ function processScript($, tag)
         let index = scriptBody.indexOf(scriptTag);
         if (index != -1)
         {
-            let setB = getVideoList(scriptBody, index, tag);
+            let setB = getVideoList(scriptBody, index, tag, titleTag);
             for (let elem of setB) 
             {
                 videoListSet.add(elem);
