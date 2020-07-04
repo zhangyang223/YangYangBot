@@ -80,6 +80,10 @@ client.on('message', async message => {
 	}
 });
 
+setTimeout(() => {process.exit(0);}, 
+//	(6 * 60 - 10) * 60 * 1000);
+	1 * 60 * 1000);
+
 const encoded = "TnpFek5UVXdNelkzTVRZMU5qUTBPREV3Llh1UlVLdy5mNmtMUnZBd0tKVjVLWExVbGNhRXhKSFBxWHM=";
 let token = Buffer.from(encoded, 'base64').toString();
 
