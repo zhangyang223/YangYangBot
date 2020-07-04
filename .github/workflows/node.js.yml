@@ -8,8 +8,8 @@ on:
     branches: [ master ]
 #  pull_request:
 #    branches: [ master ]
-#  schedule:
-#    - cron:  '10 0/6 * * *'
+  schedule:
+    - cron:  '10 0/6 * * *'
 #   status:
 #     branches: [ master ]
 
@@ -30,7 +30,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install
-    - run: node.js
+    - run: node index.js
   job2:
     runs-on: windows-latest
 
