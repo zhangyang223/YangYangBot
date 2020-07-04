@@ -32,17 +32,17 @@ YangYangBot is a discord music bot that will have similar features as Groovy and
 * feature：support search result and select song based on search result.
 
 ## Todo
-* optimize adding playlist.  when adding a long playlist, it takes a while.
+- optimize adding playlist.  when adding a long playlist, it takes a while.
 - investigate into adding persistence support: 
 -- which songs are added by which user
 -- current queue, for each song, including videoID, name, duration.
 
-* identify the audio stream and prefer opus first.
-* try to link up a radio site(possible?), https://listen.moe/
-* sometimes during playback, the connection is lost.  Needs an auto reconnection and start playing from where it was left off.
-* add Chinese TTS
-* somehow setting up the youtube service account does not work.  Getting Exceed Daily limit
-* try out youtube caption API
+- identify the audio stream and prefer opus first.
+- try to link up a radio site(possible?), https://listen.moe/* 
+- sometimes during playback, the connection is lost.  Needs an auto reconnection and start playing from where it was left off.
+- add Chinese TTS
+- somehow setting up the youtube service account does not work.  Getting Exceed Daily limit
+- try out youtube caption API
 
 ## Known Issues
 * if the length of the song is more than an hour, then current progress is incorect because it only displays mm:ss.
