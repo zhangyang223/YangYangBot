@@ -14,7 +14,7 @@ on:
 #     branches: [ master ]
 
 jobs:
-  build:
+  job1:
 
     runs-on: windows-latest
 
@@ -31,6 +31,15 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm install
     - run: node.js
+  job2:
+    runs-on: windows-latest
+
+    strategy:
+      max-parallel: 1
+      matrix:
+        node-version: [12.x]
+
+    steps:
     - uses: actions/upload-artifact@v2
       with:
         name: my-artifact
