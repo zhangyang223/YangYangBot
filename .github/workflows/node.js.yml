@@ -30,9 +30,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install
-    - run: npm test
     - uses: actions/upload-artifact@v2
       with:
         name: my-artifact
         path: test/notes.txt
-#    - run: node index.js
+
