@@ -1,5 +1,6 @@
 "use strict";
 const { Util } = require("discord.js");
+const database = require("../util/database.js");
 
 
 module.exports = 
@@ -19,13 +20,14 @@ module.exports =
       message.client.queue.set(message.guild.id, queueContruct);
       try 
       {
+
         var connection = await message.member.voice.channel.join().then( connection => {queueContruct.connection = connection;});
       }
       catch (err) 
       {
         console.log("error=" + err);
         message.client.queue.delete(message.guild.id);
-        throw err.message;
+        throw err;
       }
       return connection;
     },

@@ -35,7 +35,7 @@ YangYangBot is a discord music bot that will have similar features as Groovy and
 - optimize adding playlist.  when adding a long playlist, it takes a while.
 - investigate into adding persistence support: 
 -- which songs are added by which user
--- current queue, for each song, including videoID, name, duration.
+-- current queue, for each song, including videoID, title, duration.
 
 - identify the audio stream and prefer opus first.
 - try to link up a radio site(possible?), https://listen.moe/* 

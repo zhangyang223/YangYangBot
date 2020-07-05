@@ -51,11 +51,13 @@ module.exports =
         console.log("adding song " + song.title + ","+ song.url + "," + song.length);
         serverQueue.songs.push(song);
       }
+
+
     } 
     catch (error) 
     {
       console.error(error);
-      throw error.message;
+//      throw error;
 
     }
   },

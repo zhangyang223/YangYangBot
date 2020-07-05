@@ -35,14 +35,17 @@ module.exports = {
             //console.log(completePert + "%");
         }
       });
-
     }
 
-    function createYTDLStream(info)
+    function createYTDLStream(song)
     {
       var audioonlyoption = {filter: 'audioonly'};
       var option = { highWaterMark: 1<<25, quality: 'highestaudio' };
-      return ytdl.downloadFromInfo(info, option);
+
+      if (song.info != null)
+        return ytdl.downloadFromInfo(song.info, option);
+      else
+        return ytdl(song.url, option);
     };
 
     async function playcore(song)
@@ -57,7 +60,7 @@ module.exports = {
           return;
         }
 
-        var ytdlStream = createYTDLStream(song.info);
+        var ytdlStream = createYTDLStream(song);
 
         if (!serverQueue.connection)
           console.log("connection is null");
