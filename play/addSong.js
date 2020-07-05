@@ -3,37 +3,31 @@ const { Util } = require("discord.js");
 const getSongInfo = require("../play/getSongInfo.js");
 const msgFormatter = require("../util/formatTextMsg.js");
 const dsConnection = require("../play/discordConnection.js");
+const addPlaylist = require("./addPlaylist.js");
+const { min } = require("underscore");
 
-var addSongReturnVal = null;
+var addedSongTitle = null;
 
 module.exports = 
 {
-  async add(message, url) 
+  async addWithoutInfo(message, info1, title1, url1, length1) 
   {
     try 
     {
       const queue = message.client.queue;
       let serverQueue = message.client.queue.get(message.guild.id);
       const voiceChannel = message.member.voice.channel;
-      var songInfo = await getSongInfo.get(url);
-
-      if (!songInfo)
-      {
-        const errMsg = "Failed to retrieve song based on " + message.content;
-        console.error (errMsg);
-        throw new Error(errMsg);
-      }
 
       const song = {
-        info: songInfo.info,
-        title: songInfo.title,
-        url: songInfo.url,
-        length: songInfo.length,
+        info: info1,
+        title: title1,
+        url: url1,
+        length: length1,
         requestor: message.author.tag,
         query: message.content
       };
 
-      addSongReturnVal = song;
+      addedSongTitle = song.title;
 
       if (!serverQueue) 
       {
@@ -47,7 +41,6 @@ module.exports =
       } 
       else
       {
-
         console.log("adding song " + song.title + ","+ song.url + "," + song.length);
         serverQueue.songs.push(song);
       }
@@ -57,8 +50,28 @@ module.exports =
     catch (error) 
     {
       console.error(error);
-//      throw error;
+    }
+  },
 
+  async add(message, url) 
+  {
+    try 
+    {
+      var songInfo = await getSongInfo.get(url);
+
+      if (!songInfo)
+      {
+        const errMsg = "Failed to retrieve song based on " + message.content;
+        console.error (errMsg);
+        throw new Error(errMsg);
+      }
+
+      this.addWithoutInfo(message, songInfo.info, songInfo.title, songInfo.url, songInfo.length);
+
+    } 
+    catch (error) 
+    {
+      console.error(error);
     }
   },
 
@@ -67,7 +80,50 @@ module.exports =
     try
     {
       await this.add(message, url);
-      msgFormatter.flashTextMessage(message.channel, null, `${addSongReturnVal.title} has been added to the queue!`);
+      msgFormatter.flashTextMessage(message.channel, null, `${addedSongTitle} has been added to the queue!`);
+    }
+    catch (err)
+    {
+      msgFormatter.flashTextMessage(message.channel, 'Unexpected Error', err.message);
+    }
+  },
+   
+  async addPlaylist(message, playlist)
+  {
+    try
+    {
+      const queue = message.client.queue;
+      let serverQueue = message.client.queue.get(message.guild.id);
+      const voiceChannel = message.member.voice.channel;
+
+      for (let i = 0; i < playlist.length; i++)
+      {
+        const song = {
+          info: null,
+          title: playlist[i].title,
+          url: playlist[i].url,
+          length: playlist[i].length,
+          requestor: message.author.tag,
+          query: message.content
+        };
+
+        if (!serverQueue) 
+        {
+          await dsConnection.open(message).then( connection => 
+            {
+              serverQueue = message.client.queue.get(message.guild.id);
+              console.log("adding song " + song.title + ","+ song.url + "," + song.length);
+              serverQueue.songs.push(song);
+            });
+
+        } 
+        else
+        {
+          console.log("adding song " + song.title + ","+ song.url + "," + song.length);
+          serverQueue.songs.push(song);
+        }
+
+      }
     }
     catch (err)
     {

@@ -24,32 +24,15 @@ module.exports =
 
     async function addSongsFromPlaylist(message, videoList)
     {
-        var i = 0;
-        //videoList[i].url;
-
-        console.log(i + ") " + url + " added");
         try
         {
-            await addSong.add(message, videoList[i].url);
+//            await addSong.addWithoutInfo(message, null, videoList[i].title, videoList[i].url, null);
+            await addSong.addPlaylist(message, videoList);
             songPlayer.play(message);
         }
         catch(error)
         {
             console.error(error);
-        }
-
-        for (++i;i < videoList.length; i++) 
-        {
-            console.log(i + ") " + videoList[i].url + " added");
-            try
-            {
-                await addSong.add(message, videoList[i].url);
-                songPlayer.play(message);
-            }
-            catch(error)
-            {
-                console.error(error);
-            }
         }
 
         console.log("finished adding all songs");

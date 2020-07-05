@@ -135,7 +135,7 @@ module.exports = {
 
     function playSongWithMsg(song)
     {
-      playcoreMsg(song, "Start playing " + (serverQueue.current + 1) + ") ")
+      playcoreMsg(song, "Start playing " + (serverQueue.current + 1) + ") ");
     }
 
     function announce(song)

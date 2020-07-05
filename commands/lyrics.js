@@ -68,13 +68,13 @@ module.exports = {
  
       function findQueryText()
       {
-        let text = serverQueue.songs[0].title;
+        let text = serverQueue.songs[serverQueue.current].title;
 
-        if (serverQueue.songs[0].query != null)
+        if (serverQueue.songs[serverQueue.current].query != null)
         {
-          let inputText = cleanURL.clean(serverQueue.songs[0].query);
+          let inputText = cleanURL.clean(serverQueue.songs[serverQueue.current].query);
   
-          console.log("query=" + serverQueue.songs[0].query + ",inputText=" + inputText);
+          console.log("query=" + serverQueue.songs[serverQueue.current].query + ",inputText=" + inputText);
           if (inputText != null && !inputText.startsWith('http'))
           {
             text = inputText;

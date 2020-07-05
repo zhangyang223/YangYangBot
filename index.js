@@ -65,7 +65,7 @@ client.on('message', async message => {
 	if (!message.content.startsWith(prefix)) return;
 	if (!command) 
 	{
-		console.log("Command: ###" + command + "### not found, message.content=" + message.content + " by " + message.author.username);
+		console.log("Command: ###" + command + "### not found, message.content=" + message.content + " by " + message.author.username + " on server=" + message.guild.name + " channel=" + message.channel.name);
 		client.commands.get("help").execute(message);
 		return;
 	}

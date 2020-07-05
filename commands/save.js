@@ -1,6 +1,7 @@
 const msgFormatter = require("../util/formatTextMsg.js");
 const database = require("../util/database.js");
 
+
 module.exports = {
 	name: 'save',
 	description: 'save the current song queue',
@@ -23,12 +24,11 @@ module.exports = {
 			else	  
 			{
 				database.write(serverQueue.songs, message.guild.id);
-				msgFormatter.flashTextMessage(message.channel, null, 'Saved ' + serverQueue.songs.length + ' songs');
+				msgFormatter.flashTextMessage(message.channel, null, 'Saved ' + serverQueue.songs.length + ' songs on server ' + message.guild.name);
 			}
 		}
 		catch (error) {
-		  console.log( error);
-		  return;
+		  console.error( error);
 		}
   
 	},

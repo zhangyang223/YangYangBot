@@ -8,12 +8,24 @@ module.exports =
   {
     function formatDuration(seconds)
     {
-      var tmpString = new Date(seconds * 1000).toISOString().substr(11, 8);
-      if (tmpString.startsWith("00:"))
+      if (seconds == null)
+        return "";
+        
+      try
       {
-          tmpString = tmpString.substring(3);
+        var tmpString = new Date(seconds * 1000).toISOString().substr(11, 8);
+        if (tmpString.startsWith("00:"))
+        {
+            tmpString = tmpString.substring(3);
+        }
+        return tmpString;
       }
-      return tmpString;
+      catch (error)
+      {
+        console.error(error);
+        console.log("seconds=" + seconds);
+      }
+      return null;
     }
 
     function calculatePlayDuration(startTime)
@@ -22,7 +34,7 @@ module.exports =
       {
         var currentTime = new Date();
         var duration = currentTime - startTime;
-        return duration/1000;
+        return (duration > 0) ? duration/1000 : 0;
       }
       return null;
     }
