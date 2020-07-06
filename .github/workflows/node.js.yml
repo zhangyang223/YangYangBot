@@ -35,7 +35,9 @@ jobs:
         name: songdata
         path: dbdata/
     - run: node index.js
+      if: ${{true}}
     - uses: actions/upload-artifact@v2
+      if: ${{true}}
       with:
         name: songdata
         path: dbdata/
