@@ -30,11 +30,11 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install
-    - uses: actions/upload-artifact@v2
-      if: ${{true}}
-      with:
-        name: songdata
-        path: dbdata/
+#    - uses: actions/upload-artifact@v2
+#      if: ${{true}}
+#      with:
+#        name: songdata
+#        path: dbdata/
     - uses: actions/download-artifact@v2
       with:
         name: songdata
