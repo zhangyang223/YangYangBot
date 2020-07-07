@@ -5,6 +5,7 @@ const msgFormatter = require("../util/formatTextMsg.js");
 const dsConnection = require("../play/discordConnection.js");
 const addPlaylist = require("./addPlaylist.js");
 const { min } = require("underscore");
+const songPlayer = require("./songPlayer.js");
 
 var addedSongTitle = null;
 
@@ -45,7 +46,7 @@ module.exports =
         serverQueue.songs.push(song);
       }
 
-
+      return song;
     } 
     catch (error) 
     {
@@ -66,7 +67,7 @@ module.exports =
         throw new Error(errMsg);
       }
 
-      this.addWithoutInfo(message, songInfo.info, songInfo.title, songInfo.url, songInfo.length);
+      return this.addWithoutInfo(message, songInfo.info, songInfo.title, songInfo.url, songInfo.length);
 
     } 
     catch (error) 
@@ -79,8 +80,10 @@ module.exports =
   {
     try
     {
-      await this.add(message, url);
-      msgFormatter.flashTextMessage(message.channel, null, `${addedSongTitle} has been added to the queue!`);
+      return this.add(message, url).then(() => {
+        msgFormatter.flashTextMessage(message.channel, null, `${addedSongTitle} has been added to the queue!`); 
+//        songPlayer.play(message);
+      });
     }
     catch (err)
     {
@@ -124,6 +127,7 @@ module.exports =
         }
 
       }
+      return serverQueue.songs.length;
     }
     catch (err)
     {

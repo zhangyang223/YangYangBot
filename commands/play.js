@@ -61,9 +61,15 @@ module.exports = {
         else
         {
           console.log("this is a video");
+          /*
+          addSong.addWithMsg(message, url).then(() => {
+            console.log("before play"); 
+            songPlayer.play(message);});
+        }*/
           await addSong.addWithMsg(message, url);
           songPlayer.play(message);
         }
+          
       }
       else
       {

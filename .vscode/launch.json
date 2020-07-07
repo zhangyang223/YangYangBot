@@ -26,6 +26,9 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
+            "env": {
+                "DISCORD_TOKEN": "NzEzNTUwMzY3MTY1NjQ0ODEw.XwShCw.XNmty3XJpU8ZV8Sz8wlGVZ4_cDw"
+            },
             "program": "${workspaceFolder}\\index.js"
         }
     ]

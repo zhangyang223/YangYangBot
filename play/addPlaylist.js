@@ -28,6 +28,8 @@ module.exports =
         {
 //            await addSong.addWithoutInfo(message, null, videoList[i].title, videoList[i].url, null);
             await addSong.addPlaylist(message, videoList);
+            console.log("finished adding all songs");
+            printCurrentQueue.print(message);
             songPlayer.play(message);
         }
         catch(error)
@@ -35,8 +37,6 @@ module.exports =
             console.error(error);
         }
 
-        console.log("finished adding all songs");
-        printCurrentQueue.print(message);
     }
 
     async function requestCB(err, res, body)

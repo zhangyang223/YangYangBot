@@ -186,7 +186,7 @@ module.exports = {
         if (!serverQueue || serverQueue.songs.length == 0)
         {
           console.log("serverQ is null || songs length = 0");
-          dsConnection.close(message);
+          //dsConnection.close(message);
           return;
         }
 

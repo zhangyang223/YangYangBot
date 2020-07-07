@@ -20,7 +20,6 @@ module.exports =
       message.client.queue.set(message.guild.id, queueContruct);
       try 
       {
-
         var connection = await message.member.voice.channel.join().then( connection => {queueContruct.connection = connection;});
       }
       catch (err) 

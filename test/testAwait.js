@@ -24,7 +24,7 @@ function print(msg)
     console.log(timestamp + " " + msg);    
 }
 
-function cb1(res)
+async function cb1(res)
 {
     expect(res.search(tag)).not.equal(-1);
     findResults();
@@ -32,7 +32,7 @@ function cb1(res)
     return "cb1";
 }
 
-function cb2(r)
+async function cb2(r)
 {
     expect(r === "cb1").not.equal(-1);
     findResults();
@@ -40,23 +40,76 @@ function cb2(r)
     return "cb2";
 }
 
-function cb3(r)
+async function cb3(r)
 {
     expect(r === "cb2").not.equal(-1);
     testResult += "cb3";
     return "cb3";
 }
 
+function resolveAfter1Second(x) { 
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(x);
+    }, 1000);
+  });
+}
 
-describe("Test Await", function() 
+async function async1(r)
 {
-  it("Await", function() {
+  await resolveAfter1Second(r);
+  return r + "async1";
+}
+
+async function async2(r)
+{
+  await resolveAfter1Second(r);
+  return r + "async2";
+}
+
+async function async3(r)
+{
+  await resolveAfter1Second(r);
+  return r + "async3";
+}
+
+async function testAwait(a)
+{
+  const b = await async1(a);
+  const c = await async2(b);
+  const d = await async3(c);
+  return d;
+}
+
+async function testAwaitAndCheckResult(expected)
+{
+  const actual = await testAwait(initialTestResult);
+  expect(actual).equal(expected);
+}
+
+describe("Test Then", function() 
+{
+
+  it("3 Then", function() {
     testResult = initialTestResult;
     findResults().then(cb1).then(cb2).then(cb3);
-    expect(testResult === initialTestResult).not.equal(-1);
+    expect(testResult).not.equal(initialTestResult);
 
   });
   
+  it("3 awaits", function() {
+    const expected = "";
+    const actual = testAwait(initialTestResult);
+    // NOTE: at this point, actual is a unresolved promise.
+//    expect(actual).equal(expected);
+
+  });
+
+  it("3 awaits and checkresult", function() {
+    const expected = initialTestResult + "async1async2async3";
+    testAwaitAndCheckResult(expected);
+
+  });
 });
 
 
