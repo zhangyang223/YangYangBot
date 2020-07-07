@@ -7,3 +7,4 @@ secrets
 test/data/*
 test/result/*
 test/curlTest.bat
+.vscode/launch.json
