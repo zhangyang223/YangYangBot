@@ -22,7 +22,8 @@ jobs:
       max-parallel: 1
       matrix:
         node-version: [12.x]
-
+    env: # Or as an environment variable
+      DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
@@ -35,15 +36,15 @@ jobs:
 #      with:
 #        name: songdata
 #        path: dbdata/
-    - uses: actions/download-artifact@v2
-      with:
-        name: songdata
-        path: dbdata/
+#    - uses: actions/download-artifact@v2
+#      with:
+#        name: songdata
+#        path: dbdata/
     - run: node index.js
       if: ${{true}}
-    - uses: actions/upload-artifact@v2
-      if: ${{true}}
-      with:
-        name: songdata
-        path: dbdata/
+#    - uses: actions/upload-artifact@v2
+#      if: ${{true}}
+#      with:
+#        name: songdata
+#        path: dbdata/
 
