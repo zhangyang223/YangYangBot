@@ -1,3 +1,4 @@
+.vscode
 node_modules
 npm-debug.log
 .github
@@ -10,4 +11,3 @@ test/curlTest.bat
 .axoCover/*
 .DS_Store
 .sfdx
-.vscode
