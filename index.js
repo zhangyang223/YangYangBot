@@ -88,8 +88,6 @@ client.on('message', async message => {
 
 setTimeout(() => {process.exit(0);}, killTime);
 
-//const encoded = "TnpFek5UVXdNelkzTVRZMU5qUTBPREV3Llh1UlVLdy5mNmtMUnZBd0tKVjVLWExVbGNhRXhKSFBxWHM=";
-//let token = Buffer.from(encoded, 'base64').toString();
 let token = process.env.DISCORD_TOKEN;
 
 client.login(token);
