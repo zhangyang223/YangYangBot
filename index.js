@@ -7,6 +7,8 @@ const Client = require('./client/Client');
 const {
 	prefix,
 } = require('./config.json');
+//const killTime = (6 * 60 - 10) * 60 * 1000; // 5:50
+const killTime = 2 * 60 * 1000; // 2 minutes
 
 //var aliases = require('./alias.js');
 //console.log("value=" + aliases + ",type=" + typeof(aliases));
@@ -84,9 +86,7 @@ client.on('message', async message => {
 	}
 });
 
-setTimeout(() => {process.exit(0);}, 
-	(6 * 60 - 10) * 60 * 1000);
-//	1 * 60 * 1000);
+setTimeout(() => {process.exit(0);}, killTime);
 
 const encoded = "TnpFek5UVXdNelkzTVRZMU5qUTBPREV3Llh1UlVLdy5mNmtMUnZBd0tKVjVLWExVbGNhRXhKSFBxWHM=";
 let token = Buffer.from(encoded, 'base64').toString();
