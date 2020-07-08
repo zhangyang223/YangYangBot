@@ -24,7 +24,7 @@ module.exports = {
 			else	  
 			{
 				database.write(serverQueue.songs, message.guild.id);
-				msgFormatter.flashTextMessage(message.channel, null, 'Saved ' + serverQueue.songs.length + ' songs on server ' + message.guild.name);
+				msgFormatter.flashTextMessage(message.channel, null, 'Saved ' + serverQueue.songs.length + ' songs for server ' + message.guild.name);
 			}
 		}
 		catch (error) {
