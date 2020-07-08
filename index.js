@@ -7,8 +7,8 @@ const Client = require('./client/Client');
 const {
 	prefix,
 } = require('./config.json');
-const killTime = (6 * 60 - 10) * 60 * 1000; // 5:50
-//const killTime = 2 * 60 * 1000; // 2 minutes
+//const killTime = (6 * 60 - 10) * 60 * 1000; // 5:50
+const killTime = 2 * 60 * 1000; // 2 minutes
 
 //var aliases = require('./alias.js');
 //console.log("value=" + aliases + ",type=" + typeof(aliases));

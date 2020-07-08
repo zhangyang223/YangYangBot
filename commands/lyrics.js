@@ -4,7 +4,6 @@ const getLyrics = require("../play/getLyrics.js");
 const { KSoftClient } = require('@ksoft/api');
 const parser = require("../util/parseArgs.js");
 
-
 module.exports = {
 	name: 'lyrics',
 	description: 'Get the lyrics of the current song',
@@ -26,7 +25,8 @@ module.exports = {
           try
           {
 
-            const ksoft = new KSoftClient('a4c6aef23cdde42913dc6d70e4de4a90b52f110b');
+            let ksoft_token = process.env.KSOFT_TOKEN;
+            const ksoft = new KSoftClient(ksoft_token);
             if (ksoft == null) return result;
             let tracks = await ksoft.lyrics.search(query, { textOnly: true });
         
