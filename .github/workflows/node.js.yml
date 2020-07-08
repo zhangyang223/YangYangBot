@@ -45,7 +45,10 @@ jobs:
 #        path: dbdata/
     - run: node index.js
       if: ${{true}}
-    - run: git commit -m "Update db" -a
+    - run: 
+        git config --local user.email "zhangyang223@mail.com"
+        git config --local user.name "Zhang Yang"
+        git commit -m "Update db" -a
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
