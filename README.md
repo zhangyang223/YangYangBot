@@ -37,7 +37,7 @@ YangYangBot is a discord music bot that will have similar features as Groovy and
 - when someone types in a wrong command, print out to console which channel on which server.
 
 ## Todo
-- needs to handle github actions upload and download artifacts
+- needs to handle github actions upload and download artifacts.  did not work. trying to git push to keep history
 - identify the audio stream and prefer opus first.
 - try to link up a radio site(possible?), https://listen.moe/* 
 - sometimes during playback, the connection is lost.  Needs an auto reconnection and start playing from where it was left off.
