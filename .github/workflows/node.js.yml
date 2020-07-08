@@ -45,7 +45,7 @@ jobs:
 #        path: dbdata/
     - run: node index.js
       if: ${{true}}
-    - run: 
+    - run: |
         git config --local user.email "zhangyang223@mail.com"
         git config --local user.name "Zhang Yang"
         git commit -m "Update db" -a
