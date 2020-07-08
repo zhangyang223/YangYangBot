@@ -4,7 +4,6 @@ const getLyrics = require("../play/getLyrics.js");
 const { KSoftClient } = require('@ksoft/api');
 const parser = require("../util/parseArgs.js");
 
-const ksoft = new KSoftClient('a4c6aef23cdde42913dc6d70e4de4a90b52f110b');
 
 module.exports = {
 	name: 'lyrics',
@@ -18,52 +17,70 @@ module.exports = {
 
       async function getLyrics(query)
       {
-          console.log("Getting Lyrics");
-          
-          let tracks = await ksoft.lyrics.search(query, { textOnly: true });
-          let lyrics = null;
-      
-          for(var item of tracks) 
+        console.log("Getting Lyrics");
+        
+        async function useKsoft()
+        {
+          let result = null;
+
+          try
           {
-              if (item.name != null)
-              {
-                if (item.name.search(query) != -1)
-                {
-                  // found it.
-                  console.log("Found exact match");
-                  lyrics = item.lyrics;
-                  break;
-                }
-              }
-          };
-      
-          if (lyrics == null)
-          {
+
+            const ksoft = new KSoftClient('a4c6aef23cdde42913dc6d70e4de4a90b52f110b');
+            if (ksoft == null) return result;
+            let tracks = await ksoft.lyrics.search(query, { textOnly: true });
+        
             for(var item of tracks) 
             {
-              if (item.lyrics != null)
-              {
-                if (item.lyrics.search(query) != -1)
+                if (item.name != null)
                 {
-                  // found it.
-                  console.log("Found through lyrics");
-                  lyrics = item.lyrics;
-                  break;
+                  if (item.name.search(query) != -1)
+                  {
+                    // found it.
+                    console.log("Found exact match");
+                    result = item.lyrics;
+                    break;
+                  }
+                }
+            };
+      
+            if (result == null)
+            {
+              for(var item of tracks) 
+              {
+                if (item.lyrics != null)
+                {
+                  if (item.lyrics.search(query) != -1)
+                  {
+                    // found it.
+                    console.log("Found through lyrics");
+                    result = item.lyrics;
+                    break;
+                  }
                 }
               }
             }
           }
-      
-          if (lyrics == null)
+          catch (err)
           {
-            console.log("Failed to find any lyrics");
-          }
-          else if (lyrics.length > maxLyricLength)
-          {
-            lyrics = lyrics.substring(0, maxLyricLength) + "...";
-          }
+            // don't care for now
+//            console.error(err);
+          }          
+          return result;
+        }
 
-          return lyrics;
+        let lyrics = useKsoft();
+  
+        if (lyrics == null)
+        {
+          console.log("Failed to find any lyrics");
+        }
+        else if (lyrics.length > maxLyricLength)
+        {
+          lyrics = lyrics.substring(0, maxLyricLength) + "...";
+        }
+
+        return lyrics;
       }
  
       function findQueryText()
