@@ -114,12 +114,12 @@ module.exports = {
       {
         if (!serverQueue) 
         {
-          return msgFormatter.formatTextMsg(message.channel, null, 'There is nothing playing.');;
+          return msgFormatter.flashTextMessage(message.channel, null, 'There is nothing playing to show lyrics.');;
         }
         else
         {
           query = findQueryText();
-          title = serverQueue.songs[0].title;
+          title = serverQueue.songs[serverQueue.current].title;
         }
       }
 

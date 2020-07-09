@@ -35,9 +35,10 @@ YangYangBot is a discord music bot that will have similar features as Groovy and
 -- which songs are added by which user
 -- current queue, for each song, including videoID, title, duration.
 - when someone types in a wrong command, print out to console which channel on which server.
+- needs to handle github actions upload and download artifacts.  did not work. trying to git push to keep history
+- fixed concurrency issue when adding a playlist fast enough, the ordering is wrong.
 
 ## Todo
-- needs to handle github actions upload and download artifacts.  did not work. trying to git push to keep history
 - identify the audio stream and prefer opus first.
 - try to link up a radio site(possible?), https://listen.moe/* 
 - sometimes during playback, the connection is lost.  Needs an auto reconnection and start playing from where it was left off.
@@ -47,7 +48,7 @@ YangYangBot is a discord music bot that will have similar features as Groovy and
 
 ## Known Issues
 - if the length of the song is more than an hour, then current progress is incorect because it only displays mm:ss.
-- concurrent issue when adding a playlist fast enough, the ordering is wrong.
+- when removing the song that is currently playing, it will stop playing.
 
 ## Acknowledgement
 
