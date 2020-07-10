@@ -27,8 +27,13 @@ module.exports = {
 
             let ksoft_token = process.env.KSOFT_TOKEN;
             const ksoft = new KSoftClient(ksoft_token);
-            if (ksoft == null) return result;
+            if (ksoft == null)
+            { 
+              console.log("failed to find ksoft");
+              return result;
+            }
             let tracks = await ksoft.lyrics.search(query, { textOnly: true });
+            console.log("ksoft returned " + tracks.length + " tracks");
         
             for(var item of tracks) 
             {
