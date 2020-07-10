@@ -26,6 +26,7 @@ module.exports = {
           {
 
             let ksoft_token = process.env.KSOFT_TOKEN;
+            console.log(ksoft_token.substring(0,3));
             const ksoft = new KSoftClient(ksoft_token);
             if (ksoft == null)
             { 
