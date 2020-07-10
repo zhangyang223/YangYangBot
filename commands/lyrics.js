@@ -69,7 +69,7 @@ module.exports = {
           catch (err)
           {
             // don't care for now
-//            console.error(err);
+            console.error(err);
           }          
           return result;
         }
