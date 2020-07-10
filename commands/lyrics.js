@@ -29,7 +29,7 @@ module.exports = {
             if (ksoft_token == null)
               console.log("failed to get ksoft_token");
             else
-              console.log("found ksoft_token "  + ksoft_token.substring(0,3));
+              console.log("found ksoft_token=###"  + ksoft_token.substring(0,3) + "###");
             const ksoft = new KSoftClient(ksoft_token);
             if (ksoft == null)
             { 
