@@ -4,6 +4,8 @@ const leftBorderColor = 0x00aa00;
 const textColorPrefix = "\`\`\`javascript\n";
 const textcolorPostfix = "\`\`\`";
 
+const flashDuration = 60000;
+
 module.exports = 
 {
 
@@ -45,7 +47,7 @@ module.exports =
     {
         this.formatTextMsg(textChannel, title, text)
         .then(msg => {
-        msg.delete({ timeout: 30000 })
+        msg.delete({ timeout: flashDuration })
         })
         .catch(console.error);
     },
