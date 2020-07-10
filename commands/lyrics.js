@@ -3,8 +3,8 @@ const cleanURL = require("../util/cleanURL.js");
 const getLyrics = require("../play/getLyrics.js");
 const { KSoftClient } = require('@ksoft/api');
 const parser = require("../util/parseArgs.js");
-let ksoft_token = process.env.KSOFT_TOKEN;
-let token = process.env.DISCORD_TOKEN;
+let ksoft_token = process.env.DISCORDK_TOKEN;
+let token =       process.env.DISCORD_TOKEN;
 
 module.exports = {
 	name: 'lyrics',
