@@ -18,7 +18,7 @@ module.exports = {
 
       async function getLyrics(query)
       {
-        console.log("Getting Lyrics");
+        console.log("Getting Lyrics from ksoft");
         
         async function useKsoft()
         {
