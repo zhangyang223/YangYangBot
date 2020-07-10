@@ -3,6 +3,7 @@ const cleanURL = require("../util/cleanURL.js");
 const getLyrics = require("../play/getLyrics.js");
 const { KSoftClient } = require('@ksoft/api');
 const parser = require("../util/parseArgs.js");
+let ksoft_token = process.env.KSOFT_TOKEN;
 
 module.exports = {
 	name: 'lyrics',
@@ -25,8 +26,10 @@ module.exports = {
           try
           {
 
-            let ksoft_token = process.env.KSOFT_TOKEN;
-            console.log(ksoft_token.substring(0,3));
+            if (ksoft_token == null)
+              console.log("failed to get ksoft_token");
+            else
+              console.log(ksoft_token.substring(0,3));
             const ksoft = new KSoftClient(ksoft_token);
             if (ksoft == null)
             { 
