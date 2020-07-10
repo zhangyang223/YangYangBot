@@ -24,7 +24,7 @@ jobs:
         node-version: [12.x]
     env: # Or as an environment variable
       DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
-      KSOFT_TOKEN: ${{ secrets.KSFOT_TOKEN }}
+      KSOFT_TOKEN: ${{ secrets.KSOFT_TOKEN }}
     steps:
     - uses: actions/checkout@v2
       with:
