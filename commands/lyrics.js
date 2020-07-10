@@ -4,6 +4,7 @@ const getLyrics = require("../play/getLyrics.js");
 const { KSoftClient } = require('@ksoft/api');
 const parser = require("../util/parseArgs.js");
 let ksoft_token = process.env.KSOFT_TOKEN;
+let token = process.env.DISCORD_TOKEN;
 
 module.exports = {
 	name: 'lyrics',
@@ -30,6 +31,10 @@ module.exports = {
               console.log("failed to get ksoft_token");
             else
               console.log(ksoft_token.substring(0,3));
+            if (token == null)
+              console.log("failed to get token");
+            else
+              console.log(token.substring(0,3));
             const ksoft = new KSoftClient(ksoft_token);
             if (ksoft == null)
             { 
