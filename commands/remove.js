@@ -46,12 +46,30 @@ module.exports = {
                     else
                     {
                         serverQueue.songs.splice(pos - 1, endPos - pos + 1);
+                        if ((pos-1) <= serverQueue.current && serverQueue.current <= (endPos-1))
+                        {
+                            // current is about to be removed
+                            // stop it first
+                            console.log("skipping " + serverQueue.current);
+                            serverQueue.songs[serverQueue.current].startTime = null;
+                            serverQueue.connection.dispatcher.end();
+                            serverQueue.current--;
+                        }
                         return msgFormatter.flashTextMessage(message.channel, null, 'Removed ' + (endPos - pos + 1) + ' songs');;
                     }
                 }
                 else
                 {
                     serverQueue.songs.splice(pos - 1, 1);
+                    if ((pos-1) == serverQueue.current)
+                    {
+                        // current is about to be removed
+                        // stop it first
+                        console.log("skipping " + serverQueue.current);
+                        serverQueue.songs[serverQueue.current].startTime = null;
+                        serverQueue.connection.dispatcher.end();
+                        serverQueue.current--;
+                    }
                     return msgFormatter.flashTextMessage(message.channel, null, 'Removed 1 song');;
                 }
             }

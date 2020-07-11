@@ -38,18 +38,17 @@ YangYangBot is a discord music bot that will have similar features as Groovy and
 - needs to handle github actions upload and download artifacts.  did not work. trying to git push to keep history
 - fixed concurrency issue when adding a playlist fast enough, the ordering is wrong.
 - added back KSOFT_TOKEN
+- fixed: when removing the song that is currently playing, it will stop playing.
 
 ## Todo
 - identify the audio stream and prefer opus first.
 - try to link up a radio site(possible?), https://listen.moe/* 
 - sometimes during playback, the connection is lost.  Needs an auto reconnection and start playing from where it was left off.
-- add Chinese TTS
 - somehow setting up the youtube service account does not work.  Getting Exceed Daily limit
 - try out youtube caption API
 
 ## Known Issues
 - if the length of the song is more than an hour, then current progress is incorect because it only displays mm:ss.
-- when removing the song that is currently playing, it will stop playing.
 
 ## Acknowledgement
 
