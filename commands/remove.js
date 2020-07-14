@@ -53,8 +53,8 @@ module.exports = {
                             console.log("skipping " + serverQueue.current);
                             serverQueue.songs[serverQueue.current].startTime = null;
                             serverQueue.connection.dispatcher.end();
-                            serverQueue.current--;
                         }
+                        serverQueue.current--;
                         return msgFormatter.flashTextMessage(message.channel, null, 'Removed ' + (endPos - pos + 1) + ' songs');;
                     }
                 }
@@ -68,8 +68,8 @@ module.exports = {
                         console.log("skipping " + serverQueue.current);
                         serverQueue.songs[serverQueue.current].startTime = null;
                         serverQueue.connection.dispatcher.end();
-                        serverQueue.current--;
                     }
+                    serverQueue.current--;
                     return msgFormatter.flashTextMessage(message.channel, null, 'Removed 1 song');;
                 }
             }
