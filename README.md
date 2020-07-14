@@ -1,6 +1,6 @@
 # Discord-bot
 
-YangYangBot is a discord music bot that will have similar features as Groovy and Rythm.  Once this is more production ready, I will make it run on a public server so it will be accessible by everyone.
+Emily Music Bot is a discord music bot that will have similar features as Groovy and Rythm.  Once this is more production ready, I will make it run on a public server so it will be accessible by everyone.
 
 ## Change logs
 - help page needs refinement, specifically, if there is no alias.  and needs better formatting.
@@ -39,6 +39,7 @@ YangYangBot is a discord music bot that will have similar features as Groovy and
 - fixed concurrency issue when adding a playlist fast enough, the ordering is wrong.
 - added back KSOFT_TOKEN
 - fixed: when removing the song that is currently playing, it will stop playing.
+- went through a renaming/rebranding to the new name
 
 ## Todo
 - identify the audio stream and prefer opus first.
