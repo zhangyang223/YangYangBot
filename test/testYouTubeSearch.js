@@ -10,11 +10,12 @@ describe("Test Search", function()
 {
   it("Search", function() 
   {
-      ytUtil.search(queryText).then((result) => { console.log("search result.length=" + result.length); expect(result.length > 0);});
+      ytUtil.search(queryText).then((result) => {  expect(result.length > 0);});
   });
 
   it("Search From HTML", function() 
   {
+    this.timeout(10000) // 10 second timeout only for this test    
     const folderPath = "./test/search";
     const expected = 11;
 
@@ -24,7 +25,6 @@ describe("Test Search", function()
       let html = fs.readFileSync(htmlPath, 'utf8');
 
       let result = ytUtil.scrapeSearchFromHTML(html);
-      console.log("search length=" + result.length);
       expect(result.length > 0);
     }
 
@@ -35,12 +35,13 @@ describe("Test Search", function()
     const playlistURL = "https://www.youtube.com/playlist?list=PLYPW-sfMha5aoEyMBPyhreEW735FvwiMQ";
     const expected = 11;
 
-      ytUtil.get(playlistURL).then((result) => {console.log("playlist length=" + result.length);expect(result.length).equal(expected);});
+      ytUtil.get(playlistURL).then((result) => {expect(result.length).equal(expected);});
 
   });
   
   it("Playlist From HTML", function() 
   {
+    this.timeout(5000) // 10 second timeout only for this test    
     const folderPath = "./test/playlist";
     const expected = 11;
 
@@ -50,7 +51,6 @@ describe("Test Search", function()
       let html = fs.readFileSync(htmlPath, 'utf8');
 
       let result = ytUtil.scrapePlaylistFromHTML(html);
-      console.log("playlist length=" + result.length);
       expect(result.length).equal(expected);
     }
 

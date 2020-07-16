@@ -90,11 +90,9 @@ async function testAwaitAndCheckResult(expected)
 describe("Test Then", function() 
 {
 
-  it("3 Then", function() {
+  it("Test Async 3 Then", function() {
     testResult = initialTestResult;
-    findResults().then(cb1).then(cb2).then(cb3);
-    expect(testResult).not.equal(initialTestResult);
-
+    findResults().then(cb1).then(cb2).then(cb3).then(() => {expect(testResult).not.equal(initialTestResult);});
   });
   
   it("3 awaits", function() {

@@ -1,65 +1,87 @@
 const cleanURL = require("../util/cleanURL.js");
 const { KSoftClient } = require('@ksoft/api');
+let ksoft_token = process.env.KSOFT_TOKEN;
 
-const ksoft = new KSoftClient('a4c6aef23cdde42913dc6d70e4de4a90b52f110b');
+const maxLyricLength = 2000;
 
 module.exports = 
 {
     async get(query)
     {
-        var lyrics = "";
-        
-        //var option = { textOnly: true };
-        //var tracks = await ksoft.lyrics.search(query, option);
-        var tracks = await ksoft.lyrics.search(query);
-    
-        var songFound = false;
-    
-        for(var item of tracks) 
+      console.log("Getting Lyrics from ksoft");
+      
+      async function useKsoft()
+      {
+        let result = null;
+
+        try
         {
-            if (item.name != null)
-            {
+
+          if (ksoft_token == null)
+            console.log("failed to get ksoft_token");
+
+          const ksoft = new KSoftClient(ksoft_token);
+          if (ksoft == null)
+          { 
+            console.log("failed to find ksoft");
+            return result;
+          }
+          let tracks = await ksoft.lyrics.search(query, { textOnly: true });
+          console.log("ksoft returned " + tracks.length + " tracks");
+      
+          for(var item of tracks) 
+          {
+              if (item.name != null)
+              {
                 if (item.name.search(query) != -1)
                 {
-                // found it.
-                console.log("Found exact match using " + query);
-                console.table(item.lyrics);
-                if (lyrics.length == 0 || item.lyrics.length < lyrics.length)
-                {
-                    console.log("using this one and replacing previous one");
-                    lyrics = item.lyrics;
+                  // found it.
+                  console.log("Found exact match");
+                  result = item.lyrics;
+                  break;
                 }
-                songFound = true;
-                }
-            }
-        };
+              }
+          };
     
-        if (!songFound)
-        {
+          if (result == null)
+          {
             for(var item of tracks) 
             {
-            if (item.lyrics != null)
-            {
+              if (item.lyrics != null)
+              {
                 if (item.lyrics.search(query) != -1)
                 {
-                // found it.
-                console.log("Found through lyrics using " + query);
-                console.table(item.lyrics);
-                lyrics = item.lyrics;
-                songFound = true;
-                break;
+                  // found it.
+                  console.log("Found through lyrics");
+                  result = item.lyrics;
+                  break;
                 }
+              }
             }
-            }
+          }
         }
-    
-        if (!songFound)
+        catch (err)
         {
-            console.log("Failed to find any lyrics");
-        }
+          // don't care for now
+          console.error(err);
+        }          
+        return result;
+      }
 
-        return lyrics;
+      let lyrics = useKsoft();
+
+      if (lyrics == null)
+      {
+        console.log("Failed to find any lyrics");
+      }
+      else if (lyrics.length > maxLyricLength)
+      {
+        lyrics = lyrics.substring(0, maxLyricLength) + "...";
+      }
+
+      return lyrics;
     }
+
 };
 
 

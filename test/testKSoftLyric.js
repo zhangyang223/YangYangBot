@@ -1,7 +1,6 @@
 var expect    = require("chai").expect;
 const getLyrics = require("../play/getLyrics.js");
 
-/*
 
 describe("Test Get Lyrics", function() 
 {
@@ -32,7 +31,6 @@ describe("Test Get Lyrics 2", function()
   });
   
 });
-*/
 
 /*
 

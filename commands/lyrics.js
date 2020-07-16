@@ -11,87 +11,8 @@ module.exports = {
 	aliases: ["l"],
     async execute(message) 
     {
-      const maxLyricLength = 2000;
-
       const serverQueue = message.client.queue.get(message.guild.id);
 
-      async function getLyrics(query)
-      {
-        console.log("Getting Lyrics from ksoft");
-        
-        async function useKsoft()
-        {
-          let result = null;
-
-          try
-          {
-
-            if (ksoft_token == null)
-              console.log("failed to get ksoft_token");
-            else
-              console.log("found ksoft_token=###"  + ksoft_token.substring(0,3) + "###");
-            const ksoft = new KSoftClient(ksoft_token);
-            if (ksoft == null)
-            { 
-              console.log("failed to find ksoft");
-              return result;
-            }
-            let tracks = await ksoft.lyrics.search(query, { textOnly: true });
-            console.log("ksoft returned " + tracks.length + " tracks");
-        
-            for(var item of tracks) 
-            {
-                if (item.name != null)
-                {
-                  if (item.name.search(query) != -1)
-                  {
-                    // found it.
-                    console.log("Found exact match");
-                    result = item.lyrics;
-                    break;
-                  }
-                }
-            };
-      
-            if (result == null)
-            {
-              for(var item of tracks) 
-              {
-                if (item.lyrics != null)
-                {
-                  if (item.lyrics.search(query) != -1)
-                  {
-                    // found it.
-                    console.log("Found through lyrics");
-                    result = item.lyrics;
-                    break;
-                  }
-                }
-              }
-            }
-          }
-          catch (err)
-          {
-            // don't care for now
-            console.error(err);
-          }          
-          return result;
-        }
-
-        let lyrics = useKsoft();
-  
-        if (lyrics == null)
-        {
-          console.log("Failed to find any lyrics");
-        }
-        else if (lyrics.length > maxLyricLength)
-        {
-          lyrics = lyrics.substring(0, maxLyricLength) + "...";
-        }
-
-        return lyrics;
-      }
- 
       function findQueryText()
       {
         let text = serverQueue.songs[serverQueue.current].title;
@@ -121,7 +42,7 @@ module.exports = {
 
       if (query == null || query.length == 0)
       {
-        if (!serverQueue) 
+        if (!serverQueue || !serverQueue.songs[serverQueue.current]) 
         {
           return msgFormatter.flashTextMessage(message.channel, null, 'There is nothing playing to show lyrics.');;
         }
@@ -132,7 +53,8 @@ module.exports = {
         }
       }
 
-      let lyrics = await getLyrics(query);
+      let lyrics = await getLyrics.get(query);
+//      let lyrics = await getLyrics(query);
 
       if (lyrics != null)
       {
