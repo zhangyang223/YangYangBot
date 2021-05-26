@@ -17,9 +17,9 @@ module.exports =
         var obj = 
         {
             info: songInfo,
-            title:  songInfo.title,
-            url: songInfo.video_url,
-            length: songInfo.length_seconds,
+            title:  songInfo.videoDetails.title,
+            url: songInfo.videoDetails.video_url,
+            length: songInfo.videoDetails.lengthSeconds,
             startTime: null
         };
     

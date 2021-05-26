@@ -92,7 +92,7 @@ describe("Unit Test", function()
   });
 
   it("test getSongInfo", function() {
-    var expected = '190';
+    var expected = 251;
 /*    {
       info: songInfo,
       title:  songInfo.title,
@@ -111,11 +111,11 @@ describe("Unit Test", function()
         console.log(format);
       });
       */
-      ytdl.chooseFormat(songInfo.info.formats, {quality: 'highestaudio'});
-      return songInfo;
-    }
+      let format = ytdl.chooseFormat(songInfo.info.formats, {quality: 'highestaudio'});
+      return format;
+  }
 
-    ttt().then(info => {expect(expected).to.equal(info.length);});
+    ttt().then(f => {expect(expected).to.equal(f.itag);});
   
   });
 
