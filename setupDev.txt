@@ -1,4 +1,11 @@
 1. Bring up cmd and set DISCORD_TOKEN="discord token"
 2. discord token can be retrieved from https://discord.com/developers/applications/732626306969239552/bot, go to the token
+3. setup KSOFT_TOKEN.  look at launch.json
 
 npm install --save
+
+Setup discord BOT
+1. add Emily Music Bot using this https://discordbotlist.com/bots/emily-music-bot
+
+Setup tests
+1. under test folder, run curlTest.bat to generate test html in case YouTube changes the output.

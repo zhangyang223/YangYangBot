@@ -51,6 +51,12 @@ describe("Test Search", function()
       let html = fs.readFileSync(htmlPath, 'utf8');
 
       let result = ytUtil.scrapePlaylistFromHTML(html);
+      if (result.length > 0)
+      {
+        expect(result[0].url).to.not.equal(undefined);
+        expect(result[0].title).to.not.equal(undefined);
+        expect(result[0].length).to.not.equal(undefined);
+      }
       expect(result.length).equal(expected);
     }
 

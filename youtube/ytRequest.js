@@ -7,9 +7,10 @@ const path = require('path');
 const playlistTag = 'playlistVideoRenderer';
 const searchTag = 'videoRenderer';
 const secondTag = 'videoId';
-const playlistTitleTag = 'simpleText';
+const playlistTitleTag = 'text';
 const searchTitleTag = 'text';
 const lengthTag = "lengthText";
+const lengthSimpleTextTag = 'simpleText';
 
 
 //let result = [];
@@ -112,12 +113,13 @@ function getVideoListWithDuration(text, startingIndex, firstTag, thirdTag, lengt
         let songTitle = text.substring(thirdQuoteIndex + 1, fourthQuoteIndex);
 
         let fourthTagIndex = text.indexOf(lengthTag, fourthQuoteIndex);
-        let durationTagIndex = text.indexOf(playlistTitleTag, fourthTagIndex);
-        let fifthQuoteIndex = text.indexOf('\"', durationTagIndex + playlistTitleTag.length + 1);
+        let durationTagIndex = text.indexOf(lengthSimpleTextTag, fourthTagIndex);
+        let fifthQuoteIndex = text.indexOf('\"', durationTagIndex + lengthSimpleTextTag.length + 1);
         let sixthQuoteIndex = text.indexOf('\"', fifthQuoteIndex + 1);
         let songLength = text.substring(fifthQuoteIndex + 1, sixthQuoteIndex);
 
         let songLengthInSeconds = convertTimecodeToSeconds(songLength);
+//        let songLengthInSeconds = songLength;
         let element = {url: yturl, title: songTitle, length: songLengthInSeconds};
 
         //console.table(element);
