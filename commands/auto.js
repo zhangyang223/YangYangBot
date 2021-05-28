@@ -9,8 +9,8 @@ const parser = require("../util/parseArgs.js");
 
 module.exports = {
 	name: 'auto',
-	description: '<url> Automatic continuously play recommendation based on a song',
-	aliases: [a],
+	description: 'Not Implemented. <url> Automatic continuously play recommendation based on a song',
+	aliases: [],
 	async execute(message) 
 	{
 	  try 
