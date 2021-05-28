@@ -11,7 +11,7 @@ const playlistTitleTag = 'text';
 const searchTitleTag = 'text';
 const lengthTag = "lengthText";
 const lengthSimpleTextTag = 'simpleText';
-
+const recommendationTag = 'compactVideoRenderer';
 
 //let result = [];
 
@@ -37,6 +37,16 @@ module.exports =
         let url = encodeURI("https://www.youtube.com/results?search_query=" + query);
 
         return await sendRequest(url, scrapeSearch);
+    },
+
+    getRecommendationListFromHTML(html)
+    {
+        return scrapeRecommendationList(cheerio.load(html));
+    },
+
+    async getRecommendationList(videoURL)
+    {
+        return await sendRequest(videoURL, scrapeRecommendationList);
     }
 };
 
@@ -213,6 +223,44 @@ function processScript($, scraperCB)
     return videoListfromPromise;
 }
 
+
+function getRecommendationListUsingScriptSection(text, startingIndex, recommendationTag)
+{
+    let index = startingIndex;
+    let result = new Set();
+
+    let firstTagIndex = text.indexOf(recommendationTag, index);
+    
+    while (firstTagIndex != -1)
+    {
+        let secondTagIndex = text.indexOf(secondTag, firstTagIndex);
+        let firstQuoteIndex = text.indexOf('\"', secondTagIndex + secondTag.length + 1);
+        let secondQuoteIndex = text.indexOf('\"', firstQuoteIndex + 1);
+        let videoId = text.substring(firstQuoteIndex + 1, secondQuoteIndex);
+        var yturl = 'https://www.youtube.com/watch?v='+ videoId;
+
+        let element = {url: yturl};
+
+//        console.table(element);
+        result.add(element);
+
+        firstTagIndex = text.indexOf(recommendationTag, secondQuoteIndex + 1);
+    }
+
+    return result;
+}
+
+
+
+function scrapeRecommendationList($)
+{
+    let resultVideoList = [];
+
+        resultVideoList = processScript($, (body, index) => {return getRecommendationListUsingScriptSection(body, index, recommendationTag);});
+
+    console.log("recommendationList found " + resultVideoList.length + " songs from Cheerio Promise");
+    return resultVideoList;
+}
 
 async function sendRequest(url1, processCB)
 {

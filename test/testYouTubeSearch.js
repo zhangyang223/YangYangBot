@@ -62,5 +62,24 @@ describe("Test Search", function()
 
   });
 
+  it("Recommendation List From HTML", function() 
+  {
+//    this.timeout(5000) // 10 second timeout only for this test    
+    const folderPath = "./test/recommendation";
+    const expected = 19;
+
+    const htmlPath = folderPath + "/" + "1.htm";
+    let html = fs.readFileSync(htmlPath, 'utf8');
+
+    let result = ytUtil.getRecommendationListFromHTML(html);
+    if (result.length > 0)
+    {
+      expect(result[0].url).to.not.equal(undefined);
+    }
+    expect(result.length).equal(expected);
+    
+  });
+
+
 });
 
