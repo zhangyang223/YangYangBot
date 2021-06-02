@@ -9,3 +9,4 @@ Setup discord BOT
 
 Setup tests
 1. under test folder, run curlTest.bat to generate test html in case YouTube changes the output.
+2. 
