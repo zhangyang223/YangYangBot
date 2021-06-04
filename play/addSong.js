@@ -99,6 +99,13 @@ module.exports =
       let serverQueue = message.client.queue.get(message.guild.id);
       const voiceChannel = message.member.voice.channel;
 
+      // randomize playlist
+      function shuffleArray(arr) {
+        arr.sort(() => Math.random() - 0.5);
+      }
+
+      shuffleArray(playlist);
+
       for (let i = 0; i < playlist.length; i++)
       {
         const song = {
