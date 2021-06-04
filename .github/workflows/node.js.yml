@@ -9,8 +9,7 @@ on:
 #  pull_request:
 #    branches: [ master ]
   schedule:
-### TODO: Uncomment the next line to start the run
-###    - cron:  '10 0/6 * * *'
+    - cron:  '10 0/6 * * *'
 #   status:
 #     branches: [ master ]
 
