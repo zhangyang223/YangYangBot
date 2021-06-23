@@ -2,6 +2,7 @@
 2. discord token can be retrieved from https://discord.com/developers/applications/732626306969239552/bot, go to the token
 3. setup KSOFT_TOKEN.  look at launch.json
 
+4. after updating the npm components, run this to update the npm init file, package.json
 npm install --save
 
 Setup discord BOT
