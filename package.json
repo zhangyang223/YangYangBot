@@ -34,7 +34,7 @@
     "request-promise": "^4.2.5",
     "request-promise-native": "^1.0.8",
     "soupselect": "0.2.0",
-    "underscore": "1.8.3",
+    "underscore": "1.12.1",
     "utf8": "^3.0.0",
     "ytdl-core": "latest"
   }
