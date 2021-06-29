@@ -21,7 +21,7 @@
     "@ksoft/api": "^3.1.9",
     "chai": "^4.2.0",
     "cheerio": "^1.0.0-rc.3",
-    "discord.js": "^12.2.0",
+    "discord.js": "^12.5.3",
     "ffmpeg": "0.0.4",
     "fluent-ffmpeg": "^2.1.2",
     "google-auth-library": "^6.0.2",
@@ -36,6 +36,6 @@
     "soupselect": "0.2.0",
     "underscore": "1.8.3",
     "utf8": "^3.0.0",
-    "ytdl-core": "^4.8.2"
+    "ytdl-core": "latest"
   }
 }

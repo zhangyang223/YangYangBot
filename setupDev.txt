@@ -1,4 +1,4 @@
-1. Bring up cmd and set DISCORD_TOKEN="discord token"
+1. Bring up cmd and set DISCORD_TOKEN="discord token"(without "")
 2. discord token can be retrieved from https://discord.com/developers/applications/732626306969239552/bot, go to the token
 3. setup KSOFT_TOKEN.  look at launch.json
 
