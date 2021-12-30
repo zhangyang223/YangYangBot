@@ -11,3 +11,4 @@ test/curlTest.bat
 .axoCover/*
 .DS_Store
 .sfdx
+.dssd
